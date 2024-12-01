@@ -7,12 +7,17 @@ export default function Home() {
     LB: [45, 20, 0], 
     KG: [20, 15, 0],
   };
+  const weightPlates = {
+    LB: [45, 25, 10, 5, 2.5], 
+    KG: [25, 20, 15, 10, 5, 2.5, 1.25], 
+  };
   const [weightUnit, setWeightUnit] = useState("LB");
   const [barbellWeight, setBarbellWeight] = useState(barbellOptions["LB"][0]);
+  const [totalWeight, setTotalWeight] = useState("");
 
   function handleUnitChange(unit) {
     setWeightUnit(unit);
-    setBarbellWeight(barbellOptions[unit][0]); // Reset to first opt of unit
+    setBarbellWeight(barbellOptions[unit][0]); // Reset/default to first opt of unit
   }
   return (
     <main>
@@ -20,13 +25,17 @@ export default function Home() {
         <h1>Barbell Calculator</h1>
       </div>
       <div className="barbell-display-container">
-        <div className="weight-display"></div>
+        <div className="weight-display">
+          {weightUnit === "LB" && <p>{barbellWeight} {weightUnit} ({Math.round((barbellWeight / 2.20462) * 10) / 10} KG)</p>}
+          {weightUnit === "KG" && <p>{barbellWeight} {weightUnit} ({Math.round((barbellWeight * 2.20462) * 10) / 10} LB)</p>}
+          <p>Total Weight: {totalWeight}</p>
+        </div>
         <div className="barbell-display"></div>
       </div>
       <div className="calculation-and-options-container">
         <div className="enter-weight-and-input-container">
           <h3>Enter Weight</h3>
-          <input></input>
+          <input type="number" value={totalWeight} onChange={(e) => setTotalWeight(e.target.value)}></input>
         </div>
         <div className="options-container">
           <div className="units-container">
@@ -56,8 +65,6 @@ export default function Home() {
           <button>Calculate plates</button>
         </div>
       </div>
-      <p>{weightUnit}</p>
-      <p>{barbellWeight}</p>
     </main>
   );
 }
