@@ -1,4 +1,19 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const barbellOptions = {
+    LB: [45, 20, 0], 
+    KG: [20, 15, 0],
+  };
+  const [weightUnit, setWeightUnit] = useState("LB");
+  const [barbellWeight, setBarbellWeight] = useState(barbellOptions["LB"][0]);
+
+  function handleUnitChange(unit) {
+    setWeightUnit(unit);
+    setBarbellWeight(barbellOptions[unit][0]); // Reset to first opt of unit
+  }
   return (
     <main>
       <div className="nav-bar">
@@ -18,11 +33,11 @@ export default function Home() {
             <h3>Select Units</h3>
             <div className="units-options-container">
               <div className="weight-unit">
-                <input type="checkbox"></input>
+                <input type="radio" checked={weightUnit === "LB"} onChange={() => handleUnitChange("LB")}></input>
                 <label>LB</label>
               </div>
               <div className="weight-unit">
-                <input type="checkbox"></input>
+                <input type="radio" checked={weightUnit === "KG"} onChange={() => handleUnitChange("KG")}></input>
                 <label>KG</label>
               </div>
               
@@ -31,9 +46,9 @@ export default function Home() {
           <div className="barbell-weight-container">
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
-              <button>45 lb</button>
-              <button>20 lb</button>
-              <button>0 lb</button>
+            {barbellOptions[weightUnit].map((weight) => (
+              <button key={weight} onClick={() => setBarbellWeight(weight)}>{weight}</button>
+            ))}
             </div>
           </div>
         </div>
@@ -41,6 +56,8 @@ export default function Home() {
           <button>Calculate plates</button>
         </div>
       </div>
+      <p>{weightUnit}</p>
+      <p>{barbellWeight}</p>
     </main>
   );
 }
