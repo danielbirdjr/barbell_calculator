@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const barbellOptions = {
@@ -11,6 +11,7 @@ export default function Home() {
     LB: [45, 25, 10, 5, 2.5], 
     KG: [25, 20, 15, 10, 5, 2.5, 1.25], 
   };
+
   const [weightUnit, setWeightUnit] = useState("LB");
   const [barbellWeight, setBarbellWeight] = useState(barbellOptions["LB"][0]);
   const [totalWeight, setTotalWeight] = useState("");
@@ -26,9 +27,9 @@ export default function Home() {
       </div>
       <div className="barbell-display-container">
         <div className="weight-display">
-          {weightUnit === "LB" && <p>{barbellWeight} {weightUnit} ({Math.round((barbellWeight / 2.20462) * 10) / 10} KG)</p>}
-          {weightUnit === "KG" && <p>{barbellWeight} {weightUnit} ({Math.round((barbellWeight * 2.20462) * 10) / 10} LB)</p>}
-          <p>Total Weight: {totalWeight}</p>
+          {weightUnit === "LB" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight / 2.20462) * 10) / 10} KG)</p>}
+          {weightUnit === "KG" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight * 2.20462) * 10) / 10} LB)</p>}
+          <p>barbell weight: {barbellWeight}</p>
         </div>
         <div className="barbell-display"></div>
       </div>
@@ -56,7 +57,7 @@ export default function Home() {
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
             {barbellOptions[weightUnit].map((weight) => (
-              <button key={weight} onClick={() => setBarbellWeight(weight)}>{weight}</button>
+              <button key={weight} onClick={() => setBarbellWeight(weight)}>{weight} {weightUnit}</button>
             ))}
             </div>
           </div>
