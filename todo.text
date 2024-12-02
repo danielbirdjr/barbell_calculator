@@ -28,3 +28,7 @@ future things i might want to add
 - custom barbell weights
 - option for microplates
 - enter the desired weight in lb and it automatically give the barbell and plate display of the closest valid kg weight
+
+
+Other
+import { FiRotateCcw } from "react-icons/fi";

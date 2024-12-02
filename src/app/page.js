@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import './styles.css';
+import { FiRotateCcw } from "react-icons/fi";
 
 export default function Home() {
   const barbellOptions = {
@@ -24,12 +26,12 @@ export default function Home() {
     <main>
       <div className="nav-bar">
         <h1>Barbell Calculator</h1>
+        <button><FiRotateCcw /></button>
       </div>
       <div className="barbell-display-container">
         <div className="weight-display">
           {weightUnit === "LB" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight / 2.20462) * 10) / 10} KG)</p>}
           {weightUnit === "KG" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight * 2.20462) * 10) / 10} LB)</p>}
-          <p>barbell weight: {barbellWeight}</p>
         </div>
         <div className="barbell-display"></div>
       </div>
@@ -57,13 +59,13 @@ export default function Home() {
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
             {barbellOptions[weightUnit].map((weight) => (
-              <button key={weight} onClick={() => setBarbellWeight(weight)}>{weight} {weightUnit}</button>
+              <button key={weight} onClick={() => setBarbellWeight(weight)}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
             ))}
             </div>
           </div>
         </div>
         <div className="calculate-button-container">
-          <button>Calculate plates</button>
+          <button>Calculate Plates</button>
         </div>
       </div>
     </main>
