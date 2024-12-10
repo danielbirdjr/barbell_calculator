@@ -3,6 +3,7 @@
 import { useState } from "react";
 import './styles.css';
 import { FiRotateCcw } from "react-icons/fi";
+import calculatePlates from "./utils/calculatePlates.mjs";
 
 export default function Home() {
   const barbellOptions = {
@@ -17,10 +18,11 @@ export default function Home() {
   const [weightUnit, setWeightUnit] = useState("LB");
   const [barbellWeight, setBarbellWeight] = useState(barbellOptions["LB"][0]);
   const [totalWeight, setTotalWeight] = useState("");
+  const [result, setResult] = useState(null);
 
   function handleUnitChange(unit) {
     setWeightUnit(unit);
-    setBarbellWeight(barbellOptions[unit][0]); // Reset/default to first opt of unit
+    setBarbellWeight(barbellOptions[unit][0]);  // Reset/default to first opt of unit
   }
   return (
     <main>
@@ -33,7 +35,43 @@ export default function Home() {
           {weightUnit === "LB" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight / 2.20462) * 10) / 10} KG)</p>}
           {weightUnit === "KG" && <p>{totalWeight} {weightUnit} ({Math.round((totalWeight * 2.20462) * 10) / 10} LB)</p>}
         </div>
-        <div className="barbell-display"></div>
+        <div className="barbell-display">
+          <div className="bar-sleeve left-side">
+            <div className="plates-container left-side">
+              {/* <div className="plate lb45">45</div>
+              <div className="plate lb45">45</div>
+              <div className="plate lb25">25</div>
+              <div className="plate lb10">10</div>
+              <div className="plate lb5">5</div>
+              <div className="plate lb2-5">2.5</div> */}
+            </div>
+          </div>
+          <div className="collar left-side"></div>
+          <div className="bar">{barbellWeight}{weightUnit}</div>
+          <div className="collar right-side"></div>
+          <div className="bar-sleeve left-side">
+            <div className="plates-container right-side">
+              {/* <div className="plate kg25">25</div>
+              <div className="plate kg25">25</div>
+              <div className="plate kg20">20</div>
+              <div className="plate kg15">15</div>
+              <div className="plate kg10">10</div>
+              <div className="plate kg5">5</div>
+              <div className="plate kg2-5">2.5</div>
+              <div className="plate kg1-25">1.25</div> */}
+            </div>
+          </div>
+        </div>
+        {/* convert the result object into renderable JSX, an array */}
+        {result && typeof result === "object" && (
+            <ul>
+              {Object.entries(result).map(([plate, count]) => (
+                <li key={plate}>
+                  {count}x{plate} {weightUnit}:
+                </li>
+              ))}
+            </ul>
+          )}
       </div>
       <div className="calculation-and-options-container">
         <div className="enter-weight-and-input-container">
@@ -65,7 +103,7 @@ export default function Home() {
           </div>
         </div>
         <div className="calculate-button-container">
-          <button>Calculate Plates</button>
+          <button onClick={() => setResult(calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates))}>Calculate Plates</button>
         </div>
       </div>
     </main>

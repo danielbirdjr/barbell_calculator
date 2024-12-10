@@ -32,3 +32,18 @@ future things i might want to add
 
 Other
 import { FiRotateCcw } from "react-icons/fi";
+
+Plate Calculation Pduedo code
+
+user enter weight input and hits calculate plate button
+
+if {totalWeight >= barbellWeight} {
+    if {weightUnit === "LB" && totalWeight % 5 !== 0} {
+        return popup message: "Do you have microplates?"
+    } elif {weightUnit === "KG" && totalWeight % 2.5 !== 0} {
+        return popup message: "Do you have microplates?"
+    } else {const weightPerSide = (total weight - barbellWeight) / 2}
+
+} else {
+    display popup message saying: "Weight must be at least the weight of the barbell"
+}
