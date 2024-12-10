@@ -38,12 +38,8 @@ export default function Home() {
         <div className="barbell-display">
           <div className="bar-sleeve left-side">
             <div className="plates-container left-side">
-              {/* <div className="plate lb45">45</div>
               <div className="plate lb45">45</div>
-              <div className="plate lb25">25</div>
-              <div className="plate lb10">10</div>
-              <div className="plate lb5">5</div>
-              <div className="plate lb2-5">2.5</div> */}
+
             </div>
           </div>
           <div className="collar left-side"></div>
@@ -51,26 +47,21 @@ export default function Home() {
           <div className="collar right-side"></div>
           <div className="bar-sleeve left-side">
             <div className="plates-container right-side">
-              {/* <div className="plate kg25">25</div>
               <div className="plate kg25">25</div>
-              <div className="plate kg20">20</div>
-              <div className="plate kg15">15</div>
-              <div className="plate kg10">10</div>
-              <div className="plate kg5">5</div>
-              <div className="plate kg2-5">2.5</div>
-              <div className="plate kg1-25">1.25</div> */}
+              
             </div>
           </div>
         </div>
         {/* convert the result object into renderable JSX, an array */}
         {result && typeof result === "object" && (
-            <ul>
-              {Object.entries(result).map(([plate, count]) => (
-                <li key={plate}>
-                  {count}x{plate} {weightUnit}:
-                </li>
+          <div className="plate-results">
+            {Object.entries(result)
+              .filter(([_, count]) => count > 0)
+              .sort(([plate1], [plate2]) => parseFloat(plate2) - parseFloat(plate1))
+              .map(([plate, count]) => (
+                <div key={plate} className="plate-object">{count}x{plate}</div>
               ))}
-            </ul>
+          </div>
           )}
       </div>
       <div className="calculation-and-options-container">
