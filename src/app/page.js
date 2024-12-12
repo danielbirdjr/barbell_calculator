@@ -39,6 +39,11 @@ export default function Home() {
           <div className="bar-sleeve left-side">
             <div className="plates-container left-side">
               <div className="plate lb45">45</div>
+              <div className="plate lb35">35</div>
+              <div className="plate lb25">25</div>
+              <div className="plate lb10">10</div>
+              <div className="plate lb5">5</div>
+              <div className="plate lb2-5">2.5</div>
 
             </div>
           </div>
@@ -48,6 +53,12 @@ export default function Home() {
           <div className="bar-sleeve left-side">
             <div className="plates-container right-side">
               <div className="plate kg25">25</div>
+              <div className="plate kg20">20</div>
+              <div className="plate kg15">15</div>
+              <div className="plate kg10">10</div>
+              <div className="plate kg5">5</div>
+              <div className="plate kg2-5">2.5</div>
+              <div className="plate kg1-25">1.25</div>
               
             </div>
           </div>
