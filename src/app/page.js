@@ -50,7 +50,7 @@ export default function Home() {
           <div className="collar left-side"></div>
           <div className="bar">{barbellWeight}{weightUnit}</div>
           <div className="collar right-side"></div>
-          <div className="bar-sleeve left-side">
+          <div className="bar-sleeve right-side">
             <div className="plates-container right-side">
               <div className="plate kg25">25</div>
               <div className="plate kg20">20</div>
@@ -59,7 +59,6 @@ export default function Home() {
               <div className="plate kg5">5</div>
               <div className="plate kg2-5">2.5</div>
               <div className="plate kg1-25">1.25</div>
-              
             </div>
           </div>
         </div>
