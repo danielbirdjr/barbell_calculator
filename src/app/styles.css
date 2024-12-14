@@ -39,7 +39,11 @@
 }
 
 .weight-display {
-    background-color: orange;
+    font-weight: 600;
+}
+
+.plate-results-container {
+    height: 1.75rem;
 }
 
 .plate-results {
@@ -216,7 +220,6 @@ KG plates widths
 }
 
 .plates-container.left-side {
-
     flex-direction: row-reverse;
 }
 
@@ -634,9 +637,123 @@ KG plates widths
 
 @media (max-width: 640px) {
     .barbell-display {
+        height: 13.5rem;
+        width: 13.5rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .bar-sleeve.left-side {
+        display: none;
+    }
+
+    .collar.left-side {
+        display: none;
+    }
+
+    .plates-container.left-side {
+        display: none;
+    }      
+
+    .barbell-display .collar {
+        height: 2.1rem;
+        width: .84rem;
+    }
+
+    .barbell-display .bar {
+        width: 7rem;
+        height: .81rem;
+        font-size: 70%;
+    }
+
+    .barbell-display .bar-sleeve {
+        height: 1.45rem;
+        width: 11.6rem;
+    }
+
+    .plate.kg25 {
+        height: 12.59rem;
+        width: .82rem;
+        font-size: 60%;
+    }
+
+    .plate.kg20 {
+        height: 12.59rem;
+        width: .72rem;
+        font-size: 50%;
+    }
+
+    .plate.kg15 {
+        height: 11.19rem;
+        width: .65rem;
+        font-size: 50%;
+    }
+
+    .plate.kg10 {
+        height: 9.09rem;
+        width: .65rem;
+        font-size: 50%;
+    }
+
+    .plate.kg5 {
+        height: 5.22rem;
+        width: .65rem;
+        font-size: 60%;
+    }
+
+    .plate.kg2-5 {
+        height: 4.29rem;
+        width: .61rem;
+        font-size: 50%;
+    }
+
+    .plate.kg1-25 {
+        height: 3.63rem;
+        width: .59rem;
+        font-size: 50%;
+    }
+
+
+    .plate.lb45 {
+        height: 12.59rem;
+        width: 1.17rem;
+        font-size: 70%;
+    }
+
+    .plate.lb35 {
+        height: 11.75rem;
+        width: 1.17rem;
+        font-size: 70%;
+    }
+
+    .plate.lb25 {
+        height: 9.41rem;
+        width: 1.12rem;
+        font-size: 70%;
+    }
+
+    .plate.lb10 {
+        height: 6.15rem;
+        width: .83rem;
+        font-size: 70%;
+    }
+
+    .plate.lb5 {
+        height: 4.85rem;
+        width: .61rem;
+        font-size: 65%;
+    }
+
+    .plate.lb2-5 {
+        height: 3.63rem;
+        width: .59rem;
+        font-size: 50%;
+    }
+
+
+    /* .barbell-display {
         height: 10rem;
         width: 10rem;
-        background-color: red;
         display: flex;
         justify-content: center;
       }
@@ -745,12 +862,12 @@ KG plates widths
         height: 2.69rem;
         width: .44rem;
         font-size: 30%;
-      }
+      } */
 }
 
 @media (max-width: 400px) {
     .nav-bar h1 {
-        font-size: 1.625em;
+        font-size: 1.45em;
     }
     /* .barbell-display {
         height: 4.13rem;
