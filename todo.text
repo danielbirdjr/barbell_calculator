@@ -47,3 +47,10 @@ if {totalWeight >= barbellWeight} {
 } else {
     display popup message saying: "Weight must be at least the weight of the barbell"
 }
+
+
+todo:
+
+add reset button functionality
+add enter click as way to click calculate plates button
+fix the errors when you already loaded plates and you switch to KG or LB
