@@ -28,7 +28,8 @@
 }
 
 .nav-bar button:hover {
-    background-color: rgb(200, 73, 73)
+    background-color: rgb(200, 73, 73);
+    cursor: pointer;
 }
 
 .barbell-display-container {

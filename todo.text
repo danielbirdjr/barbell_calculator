@@ -54,3 +54,7 @@ todo:
 add reset button functionality
 add enter click as way to click calculate plates button
 fix the errors when you already loaded plates and you switch to KG or LB
+- do this by reseting or recalculating the weight display when you switch metrics
+add 0lb display (weighted belt)
+display error pop up message when its not divisible
+add custom barbell weight entry

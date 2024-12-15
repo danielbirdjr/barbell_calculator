@@ -8,8 +8,8 @@ import renderPlates from "./utils/renderPlates.mjs";
 
 export default function Home() {
   const barbellOptions = {
-    LB: [45, 20, 0], 
-    KG: [20, 15, 0],
+    LB: [45, 35, 20], 
+    KG: [20, 15, 10],
   };
   const weightPlates = {
     LB: [45, 25, 10, 5, 2.5], 
@@ -25,11 +25,20 @@ export default function Home() {
     setWeightUnit(unit);
     setBarbellWeight(barbellOptions[unit][0]);  // Reset/default to first opt of unit
   }
+
+  function resetPlatesDisplay() {
+    setResult(null);
+  }
+
+  function resetWeightInput() {
+    setTotalWeight("");
+  }
+
   return (
     <main>
       <div className="nav-bar">
         <h1>Barbell Calculator</h1>
-        <button><FiRotateCcw /></button>
+        <button onClick={() => {resetPlatesDisplay(); resetWeightInput(); }}><FiRotateCcw /></button>
       </div>
       <div className="barbell-display-container">
         <div className="weight-display">
@@ -75,11 +84,11 @@ export default function Home() {
             <h3>Select Units</h3>
             <div className="units-options-container">
               <div className="weight-unit">
-                <input type="radio" checked={weightUnit === "LB"} onChange={() => handleUnitChange("LB")}></input>
+                <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB"); resetPlatesDisplay(); }}></input>
                 <label>LB</label>
               </div>
               <div className="weight-unit">
-                <input type="radio" checked={weightUnit === "KG"} onChange={() => handleUnitChange("KG")}></input>
+                <input type="radio" checked={weightUnit === "KG"} onChange={() => {handleUnitChange("KG"); resetPlatesDisplay(); }}></input>
                 <label>KG</label>
               </div>
               
@@ -89,7 +98,7 @@ export default function Home() {
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
             {barbellOptions[weightUnit].map((weight) => (
-              <button key={weight} onClick={() => setBarbellWeight(weight)}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
+              <button key={weight} onClick={() => {setBarbellWeight(weight); resetPlatesDisplay(); }}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
             ))}
             </div>
           </div>
