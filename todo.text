@@ -1,60 +1,14 @@
-barbell plate functionality
-
-Select units
-the default value will be LB, it will be checked by default
-if the KG is checked, it automatically unchecks the LB
-if the LB is checked, it automatically unchecks the KG
-
-Select barbell
-the 45 lb option will be the default option
-if one of the other barbell options is chosen, it will unselect the previously chosen weight automatically
-
-select Units
-if LB is checked, it will display the following "select barbell" buttons: 45 lb, 20 lb, and 0 lb
-if KG is checked, it will display the following "select barbell" buttons: 20 kg, 15 kg, and 0 kg
-
-if LB is checked, the plate weights it can choose from are: 45 lb, 25 lb, 10 lb, 5 lb, 2.5 lb
-if LB is checked, the plate weights it can choose from are: 25 kg, 20 kg, 15 kg, 10 kg, 5 kg, 2.5 kg, 1.25 kg
-
-above the barbell display, it should display the total weight that the user entered in and also put what the equals in the other unit next to it
-for example, 225 lb or 102 kg
-
-the barbell and plate display should automatically calculate the display of the weight that the user enters using the biggest plates availbale first without going over the entered weight
-for example, the user enters: 305
-the barbell should have 2x 45's, 1x 25's, 1x 10's, 1x 5's on each side of the barbell
-
-
 future things i might want to add
 - custom barbell weights
 - option for microplates
 - enter the desired weight in lb and it automatically give the barbell and plate display of the closest valid kg weight
 
 
-Other
-import { FiRotateCcw } from "react-icons/fi";
-
-Plate Calculation Pduedo code
-
-user enter weight input and hits calculate plate button
-
-if {totalWeight >= barbellWeight} {
-    if {weightUnit === "LB" && totalWeight % 5 !== 0} {
-        return popup message: "Do you have microplates?"
-    } elif {weightUnit === "KG" && totalWeight % 2.5 !== 0} {
-        return popup message: "Do you have microplates?"
-    } else {const weightPerSide = (total weight - barbellWeight) / 2}
-
-} else {
-    display popup message saying: "Weight must be at least the weight of the barbell"
-}
-
-
 todo:
 
-add reset button functionality
 add enter click as way to click calculate plates button
-fix the errors when you already loaded plates and you switch to KG or LB
-- do this by reseting or recalculating the weight display when you switch metrics
 add 0lb display (weighted belt)
 display error pop up message when its not divisible
 add custom barbell weight entry
+when viewing from mobile device, it should bring up numeric keypad instead of keyboard
+add margin below calculate plates for mobile devices
