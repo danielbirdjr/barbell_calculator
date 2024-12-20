@@ -6,9 +6,21 @@ future things i might want to add
 
 todo:
 
+Barbell Calculator
 add enter click as way to click calculate plates button
 add 0lb display (weighted belt)
 display error pop up message when its not divisible
 add custom barbell weight entry
 when viewing from mobile device, it should bring up numeric keypad instead of keyboard
 add margin below calculate plates for mobile devices
+
+Rep Max Calculator
+weight input box
+reps input box
+RPE input box (defaults to RPE 10)
+toggle for LB vs KG
+toggle for RPE vs RIR
+toggle for weighted pull up/dips
+    if weighted pull ups/dips toggle is true:
+        add bodyweight input box
+        add adv dropdown part that is hidden by default to adjust % of BW
