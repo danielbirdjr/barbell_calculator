@@ -1,0 +1,103 @@
+.rm-calculation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    width: 22rem;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-container input {
+    color: black;
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+.weight-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.weight-input {
+    width: 100%;
+}
+
+.weight-units-container {
+    display: flex;
+    align-items: center;
+}
+
+.weight-units-container .weight-unit {
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border: 1px solid lightgray;
+}
+
+.left-side-weight-unit {
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.right-side-weight-unit {
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.weight-unit input {
+    margin-right: .125rem;
+}
+
+
+.reps-and-intensity-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.reps-input-container, 
+.intensity-container {
+    flex: 1;
+    display: flex;
+}
+
+.reps-input-container input {
+    width: 100%;
+}
+
+.intensity-container select {
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: black;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 1px solid lightgray;
+}
+
+.intensity-container input {
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    width: 100%;
+}

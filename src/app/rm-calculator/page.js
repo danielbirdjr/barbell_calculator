@@ -27,60 +27,70 @@ export default function RepMaxCalculator() {
 
     const displayedWeight = weight || 0;
     const displayedReps = reps || 0;
-    const displayedIntensity = intensity || 10;
+    const displayedIntensity = intensity || (intensityUnit === "RPE" ? 10 : 0);
 
     return (
         <main>
-            <div>
-                <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
-                <input type="number" value={reps} onChange={(e) => setReps(e.target.value)} placeholder="Reps"/>
-                <input type="number" value={intensity} onChange={(e) => setIntensity(e.target.value)} placeholder="RPE"/>
-                <div>
-                    <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
-                    <label>LB</label>
-                </div>
-                <div>
-                    <input type="radio" checked={weightUnit === "KG"}  onChange={() => {handleUnitChange("KG")}}></input>
-                    <label>KG</label>
-                </div>
-                <div>
-                    <input type="radio" checked={intensityUnit === "RPE"} onChange={() => {handleIntensityChange("RPE")}}></input>
-                    <label>RPE</label>
-                </div>
-                <div>
-                    <input type="radio" checked={intensityUnit === "RIR"}  onChange={() => {handleIntensityChange("RIR")}}></input>
-                    <label>RIR</label>
-                </div>
-                <div>
-                    <input type="checkbox" checked={isWeightedBodyweight}  onChange={(e) => setIsWeightedBodyweight(e.target.checked)}></input>
-                    <label>Weighted pull up/dip?</label>
-                </div>
-                {isWeightedBodyweight && (
-                    <div>
-                        <div><input type="number" value={bodyweight} onChange={(e) => setBodyweight(e.target.value)} placeholder="Bodyweight" /></div>
-                        <div>
-                            <span
-                                onClick={() => setIsAdvVisible(!isAdvVisible)} // Toggle visibility on click
-                                style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-                            >
-                                Adv <FiSettings style={{ marginLeft: "5px" }} />
-                            </span>
-                            {isAdvVisible && (
-                                <ul>
-                                    <li><input type="number" value={percentageOfBodyweight} onChange={(e) => setPercentageOfBodyweight(e.target.value)} />%</li>
-                                    <li>Adjust % of your bodyweight to include in the total weight.</li>
-                                    <li>(Ex) Weighted Push Ups: count 60% of your BW since you aren't lifting weight of your legs</li>
-                                </ul>
-                            )}
+            <div className="rm-calculation-container">
+                <div className="data-container">
+                    <div className="header-container">
+                        <h2>One Rep Max Calculator</h2>
+                    </div>
+                    <div className="weight-container">
+                        <input className="weight-input" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
+                        <div className="weight-units-container">
+                            <div className="weight-unit left-side-weight-unit">
+                                <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
+                                <label>LB</label>
+                            </div>
+                            <div className="weight-unit right-side-weight-unit">
+                                <input type="radio" checked={weightUnit === "KG"}  onChange={() => {handleUnitChange("KG")}}></input>
+                                <label>KG</label>
+                            </div>
                         </div>
                     </div>
-                )}
-            </div>
-            <div>
-                <h3>Result</h3>
-                <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {displayedIntensity} equals</div>
-                <h1>405 {weightUnit.toLowerCase()}</h1>
-                <div>for a 1 rep max</div>
+                    <div className="reps-and-intensity-container">
+                        <div className="reps-input-container">
+                            <input type="number" value={reps} onChange={(e) => setReps(e.target.value)} placeholder="Reps"/>
+                        </div>
+                        <div className="intensity-container">
+                            <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
+                                <option value="RPE">RPE</option>
+                                <option value="RIR">RIR</option>
+                            </select>
+                            <input type="number" value={intensity} onChange={(e) => setIntensity(e.target.value)} />
+                        </div>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked={isWeightedBodyweight}  onChange={(e) => setIsWeightedBodyweight(e.target.checked)}></input>
+                        <label>Weighted pull up/dip?</label>
+                    </div>
+                    {isWeightedBodyweight && (
+                        <div>
+                            <div><input type="number" value={bodyweight} onChange={(e) => setBodyweight(e.target.value)} placeholder="Bodyweight" /></div>
+                            <div>
+                                <span
+                                    onClick={() => setIsAdvVisible(!isAdvVisible)} // Toggle visibility on click
+                                    style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+                                >
+                                    Adv <FiSettings style={{ marginLeft: "5px" }} />
+                                </span>
+                                {isAdvVisible && (
+                                    <ul>
+                                        <li><input type="number" value={percentageOfBodyweight} onChange={(e) => setPercentageOfBodyweight(e.target.value)} />%</li>
+                                        <li>Adjust % of your bodyweight to include in the total weight.</li>
+                                        <li>(Ex) Weighted Push Ups: count 60% of your BW since you aren't lifting weight of your legs</li>
+                                    </ul>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className="result-container">
+                    <h3>Result</h3>
+                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {displayedIntensity} equals</div>
+                    <h1>405 {weightUnit.toLowerCase()}</h1>
+                </div>
             </div>
         </main>
     );
