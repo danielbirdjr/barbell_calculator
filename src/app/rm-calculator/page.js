@@ -17,6 +17,14 @@ export default function RepMaxCalculator() {
     const [isAdvVisible, setIsAdvVisible] = useState(false);
     const [percentageOfBodyweight, setPercentageOfBodyweight] = useState(100);
 
+    const handleCheckboxChange = (checked) => {
+        setIsWeightedBodyweight(checked);
+        if (!checked) {
+            setIsAdvVisible(false); // Reset advanced visibility
+            setPercentageOfBodyweight(100); // Reset percentage to default
+        }
+    };
+
     function handleUnitChange(unit) {
         setWeightUnit(unit);
     }
@@ -34,7 +42,10 @@ export default function RepMaxCalculator() {
             <div className="rm-calculation-container">
                 <div className="data-container">
                     <div className="header-container">
-                        <h2>One Rep Max Calculator</h2>
+                        <select>
+                            <option>One Rep Max Calculator</option>
+                            <option>Calculate # of Reps by RM</option>
+                        </select>
                     </div>
                     <div className="weight-container">
                         <input className="weight-input" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
@@ -61,30 +72,56 @@ export default function RepMaxCalculator() {
                             <input type="number" value={intensity} onChange={(e) => setIntensity(e.target.value)} />
                         </div>
                     </div>
-                    <div>
-                        <input type="checkbox" checked={isWeightedBodyweight}  onChange={(e) => setIsWeightedBodyweight(e.target.checked)}></input>
-                        <label>Weighted pull up/dip?</label>
-                    </div>
-                    {isWeightedBodyweight && (
-                        <div>
-                            <div><input type="number" value={bodyweight} onChange={(e) => setBodyweight(e.target.value)} placeholder="Bodyweight" /></div>
-                            <div>
+                    <div className="weighted-pull-up-container">
+                        <div className="weighted-pull-up-header-container">
+                            <div className="weighted-pull-up-checkbox-container">
+                                <input
+                                    type="checkbox"
+                                    checked={isWeightedBodyweight}
+                                    onChange={(e) => handleCheckboxChange(e.target.checked)}
+                                />
+                                <label>Weighted pull up/dip?</label>
+                            </div>
+                            {isWeightedBodyweight && (
                                 <span
-                                    onClick={() => setIsAdvVisible(!isAdvVisible)} // Toggle visibility on click
-                                    style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+                                    className="adv-settings-toggle"
+                                    onClick={() => setIsAdvVisible(!isAdvVisible)}
                                 >
-                                    Adv <FiSettings style={{ marginLeft: "5px" }} />
+                                    Adv <FiSettings />
                                 </span>
+                            )}
+                        </div>
+
+                        {isWeightedBodyweight && (
+                            <div className="bodyweight-and-percentage-container">
+                                <div className="bodyweight-container">
+                                    <input
+                                        type="number"
+                                        value={bodyweight}
+                                        onChange={(e) => setBodyweight(e.target.value)}
+                                        placeholder="Bodyweight"
+                                    />
+                                </div>
                                 {isAdvVisible && (
-                                    <ul>
-                                        <li><input type="number" value={percentageOfBodyweight} onChange={(e) => setPercentageOfBodyweight(e.target.value)} />%</li>
-                                        <li>Adjust % of your bodyweight to include in the total weight.</li>
-                                        <li>(Ex) Weighted Push Ups: count 60% of your BW since you aren't lifting weight of your legs</li>
-                                    </ul>
+                                    <div className="percentage-container">
+                                        <input
+                                            type="number"
+                                            value={percentageOfBodyweight}
+                                            onChange={(e) => setPercentageOfBodyweight(e.target.value)}
+                                        />
+                                        <span>%</span>
+                                    </div>
                                 )}
                             </div>
-                        </div>
-                    )}
+                        )}
+
+                        {isWeightedBodyweight && isAdvVisible && (
+                            <ul className="advanced-settings-list">
+                                <li>Adjust % of your BW to include in total weight.</li>
+                                <li>Ex: Weighted Push Ups: count 60% of your BW since you aren't lifting weight of your legs.</li>
+                            </ul>
+                        )}
+                    </div>
                 </div>
                 <div className="result-container">
                     <h3>Result</h3>
@@ -95,12 +132,4 @@ export default function RepMaxCalculator() {
         </main>
     );
 }
-// weight input box
-// reps input box
-// RPE input box (defaults to RPE 10)
-// toggle for LB vs KG
-// toggle for RPE vs RIR
-// toggle for weighted pull up/dips
-//     if weighted pull ups/dips toggle is true:
-//         add bodyweight input box
-//         add adv dropdown part that is hidden by default to adjust % of BW
+// whenever the user checks the checkbox and then opens the adv, if the user then unchecks the checkbox, the next time they check it again, it should be default have the advanced setting unopened and make sure it resetted the bodyweight percentage to the default
