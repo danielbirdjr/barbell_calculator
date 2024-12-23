@@ -126,7 +126,7 @@ export default function RepMaxCalculator() {
                 <div className="result-container">
                     <h3>Result</h3>
                     <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {displayedIntensity} equals</div>
-                    <h1>405 {weightUnit.toLowerCase()}</h1>
+                    <h1>0 {weightUnit.toLowerCase()}</h1>
                 </div>
             </div>
         </main>
