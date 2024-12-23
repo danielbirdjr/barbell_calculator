@@ -9,7 +9,6 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1rem;
     width: 22rem;
-
 }
 
 .header-container {
@@ -42,6 +41,8 @@
 .percentage-container {
     grid-column: span 1; /* Occupies one column */
     display: flex;
+    align-items: center; /* need to fix RPE select */
+    justify-content: center;
 }
 
 
@@ -53,12 +54,6 @@
 .weighted-pull-up-container {
     margin-bottom: 1rem;
 }
-
-/* .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 
 .header-container select {
     font-size: 1.625rem;
@@ -76,21 +71,6 @@
     border-radius: 5px;
     border: 1px solid lightgray;
 }
-
-/* .weight-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.weight-input {
-    width: 100%;
-}
-
-.weight-units-container {
-    display: flex;
-    align-items: center;
-} */
 
 .weight-units-container .weight-unit {
     display: flex;
@@ -119,30 +99,18 @@
     margin-right: .125rem;
 }
 
-
-/* .reps-and-intensity-container {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-}
-
-.reps-input-container, 
-.intensity-container {
-    flex: 1;
-    display: flex;
-}
-
-.reps-input-container input {
-    width: 100%;
-} */
-
 .intensity-container select {
     border-radius: 5px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     color: black;
+
     font-size: 1rem;
+    height: 100%;
+    padding-left: 0.24rem;
+    padding-right: 0.24rem;
     font-weight: 700;
+    line-height: 1.5;
     border: 1px solid lightgray;
 }
 
@@ -154,63 +122,9 @@
 }
 
 /* WEIGHTED PULL UP/DIP CONTAINER */
-/* .weighted-pull-up-checkbox-container {
-    margin-bottom: 1rem;
-}
 
 .weighted-pull-up-checkbox-container input {
-    margin-right: .125rem;
-}
-
-.bodyweight-container {
-    margin-bottom: 1rem;
-} */
-
-/* .bodyweight-and-advanced-settings-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-} */
-
-
-/* .weighted-pull-up-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.bodyweight-and-advanced-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.weighted-pull-up-checkbox-container {
-    
-}
-
-.advanced-setting-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.advanced-setting-container input {
-    width: 4rem;
-}
-
-.bodyweight-percentage-container {
-
-} */
-
-/* .weighted-pull-up-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-}
-
-.weighted-pull-up-header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin-right: .25rem;
 }
 
 .weighted-pull-up-checkbox-container {
@@ -227,13 +141,6 @@
     color: rgb(73, 73, 73);
 }
 
-.bodyweight-and-percentage-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
 .percentage-container input {
     width: 100%;
     text-align: center;
@@ -243,7 +150,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-} */
+} 
 
 .advanced-settings-list {
     list-style: none;
