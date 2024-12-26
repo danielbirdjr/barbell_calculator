@@ -195,6 +195,17 @@ input, select {
     
 }
 
+@media (max-width: 480px) {
+    .header-container select {
+        font-size: 1.5rem;
+    }
+
+    .weighted-pull-up-checkbox-container label, 
+    .adv-settings-toggle {
+        font-size: .88rem;
+    }
+}
+
 @media (max-width: 380px) {
     .data-container {
         width: 19rem;
