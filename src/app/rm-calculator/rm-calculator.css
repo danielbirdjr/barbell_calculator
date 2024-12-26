@@ -14,6 +14,10 @@
     height: 24rem;
 }
 
+input, select {
+    max-width: 100%;
+}
+
 .header-container {
     grid-column: span 3; /* Spans all three columns */
     display: flex;
@@ -60,6 +64,8 @@
     border: 1px solid lightgray;
 }
 
+
+/* HEADER ROW */
 .header-container select {
     font-size: 1.625rem;
     font-weight: 700;
@@ -67,6 +73,8 @@
     padding: .5rem .375rem;
 }
 
+
+/* WEIGHT & WEIGHT UNITS ROW */
 .weight-units-container .weight-unit {
     display: flex;
     align-items: center;
@@ -94,6 +102,8 @@
     margin-right: .125rem;
 }
 
+
+/* REPS & INTENSITY ROW */
 .intensity-container select {
     border-radius: 5px;
     border-top-right-radius: 0px;
@@ -159,3 +169,53 @@
     align-items: center;
     gap: .75rem;
 }
+
+.result-container h2 {
+    padding: .5rem .375rem;
+}
+
+/* MEDIA QUERIES */
+@media (min-width: 1024px) {
+    .rm-calculation-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .data-container, 
+    .result-container {
+        height: 24rem;
+        width: 22rem;
+    }
+
+    
+}
+
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 380px) {
+    .data-container {
+        width: 19rem;
+        height: 22rem;
+    }
+
+    .header-container select {
+        font-size: 1.375rem;
+    }
+
+    .weighted-pull-up-checkbox-container input {
+        margin-right: .125rem;
+    }
+
+    .weighted-pull-up-checkbox-container label, 
+    .adv-settings-toggle {
+        font-size: .88rem;
+    }
+
+    .advanced-settings-list {
+        font-size: .86rem;
+    }
+}
+
