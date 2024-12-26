@@ -197,7 +197,7 @@ input, select {
 
 @media (max-width: 480px) {
     .header-container select {
-        font-size: 1.45rem;
+        font-size: 1.49rem;
     }
 
     .weighted-pull-up-checkbox-container label, 
@@ -206,7 +206,7 @@ input, select {
     }
 
     .weighted-pull-up-checkbox-container input {
-        margin-right: .125rem;
+        margin-right: .075rem;
     }
 }
 
@@ -221,7 +221,7 @@ input, select {
     }
 
     .weighted-pull-up-checkbox-container input {
-        margin-right: .125rem;
+        margin-right: .075rem;
     }
 
     .weighted-pull-up-checkbox-container label, 
