@@ -118,7 +118,7 @@ export default function RepMaxCalculator() {
                         {isWeightedBodyweight && isAdvVisible && (
                             <ul className="advanced-settings-list">
                                 <li>Adjust % of your BW to include in total weight.</li>
-                                <li>Ex: Weighted Push Ups: count 60% of your BW since you aren't lifting weight of your legs.</li>
+                                <li>Ex: Weighted Push Ups: count 60% of your BW since you aren&apos;t lifting weight of your legs.</li>
                             </ul>
                         )}
                     </div>
