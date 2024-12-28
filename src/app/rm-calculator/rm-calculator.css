@@ -124,7 +124,15 @@ input, select {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     width: 100%;
+    text-align: center;
 }
+
+.intensity-container input[type=number]::-webkit-inner-spin-button, 
+.intensity-container input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 
 
 /* WEIGHTED PULL UP/DIP CONTAINER */

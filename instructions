@@ -1,0 +1,17 @@
+I want it so that by default, the weight and reps input boxes dont have any values in them
+a possible issue i see with this is that if the weight and reps both = "", then this will cause an error for the calculate1RM function since it wont have values for those parameters
+
+i want it so that by default the calculate1RM equals 0 when no values are entered for weight and reps
+i also want it so that the values in my result container by default are 0 for weight and 0 for reps 
+For example in this part of code:
+
+```
+<h2>Result</h2>
+<div>{weight} {weightUnit.toLowerCase()} x {reps} reps @ {intensityUnit} {intensity} equals</div>          
+```
+
+i want it to appear on the screen as follows when there is nothing entered into weight input and reps input 
+Result
+0 lb x 0 reps @ RPE 10 equals
+
+im just trying to prevent future errors from coming up when using the calculate1RM function in the best way possible, so that is why i was trying to make sure only valid inputs got entered for reps and intensity and bodyweightPercentage

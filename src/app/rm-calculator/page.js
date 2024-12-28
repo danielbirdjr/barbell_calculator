@@ -3,25 +3,81 @@
 import { useState } from "react";
 import '../styles/globals.css'
 import './rm-calculator.css'; 
-import { FiSettings } from "react-icons/fi"; // <FiSettings />
+import { FiSettings } from "react-icons/fi"; 
+import calculate1RM from "../utils/calculate1RM.mjs";
+import { useEffect } from "react";
 
 
 export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
     const [reps, setReps] = useState("");
-    const [intensity, setIntensity] = useState("");
     const [weightUnit, setWeightUnit] = useState("LB");
     const [intensityUnit, setIntensityUnit] = useState("RPE");
+    const [intensity, setIntensity] = useState(intensityUnit === "RPE" ? 10 : 0);
     const [isWeightedBodyweight, setIsWeightedBodyweight] = useState(false);
     const [bodyweight, setBodyweight] = useState("");
     const [isAdvVisible, setIsAdvVisible] = useState(false);
     const [percentageOfBodyweight, setPercentageOfBodyweight] = useState(100);
+
+    useEffect(() => {
+        setIntensity(intensityUnit === "RPE" ? 10 : 0);
+    }, [intensityUnit]);
 
     const handleCheckboxChange = (checked) => {
         setIsWeightedBodyweight(checked);
         if (!checked) {
             setIsAdvVisible(false); // Reset advanced visibility
             setPercentageOfBodyweight(100); // Reset percentage to default
+        }
+    };
+
+    const handleRepChange = (value) => {
+        // Allow only whole numbers between 1 and 12
+        const numericValue = parseInt(value, 10);
+        if (!isNaN(numericValue) && numericValue >= 1 && numericValue <= 12) {
+            setReps(numericValue);
+        } else if (value === "") {
+            // Allow clearing the input
+            setReps("");
+        }
+    };
+
+    const handleIntensityValueChange = (value) => {
+        if (value === "" || /^-?\d*\.?\d*$/.test(value)) {
+            setIntensity(value); // Allow temporary invalid input
+        }
+    };
+    
+    const handleIntensityBlur = () => {
+        const numericValue = parseFloat(intensity);
+    
+        if (intensityUnit === "RPE") {
+            if (!isNaN(numericValue) && numericValue >= 4 && numericValue <= 10 && (numericValue * 10) % 5 === 0) {
+                setIntensity(numericValue % 1 === 0 ? numericValue.toString() : numericValue.toFixed(1));
+            } else {
+                // Round to the nearest valid value within range
+                const clampedValue = Math.min(10, Math.max(4, Math.round(numericValue * 2) / 2));
+                setIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
+            }
+        } else if (intensityUnit === "RIR") {
+            if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 6 && (numericValue * 10) % 5 === 0) {
+                setIntensity(numericValue % 1 === 0 ? numericValue.toString() : numericValue.toFixed(1));
+            } else {
+                // Round to the nearest valid value within range
+                const clampedValue = Math.min(6, Math.max(0, Math.round(numericValue * 2) / 2));
+                setIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
+            }
+        }
+    };
+
+    const handlePercentageOfBodyweightChange = (value) => {
+        // Allow only numbers between 0 and 100
+        const numericValue = parseFloat(value);
+        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
+            setPercentageOfBodyweight(numericValue);
+        } else if (value === "") {
+            // Allow clearing the input
+            setPercentageOfBodyweight("");
         }
     };
 
@@ -35,7 +91,10 @@ export default function RepMaxCalculator() {
 
     const displayedWeight = weight || 0;
     const displayedReps = reps || 0;
-    const displayedIntensity = intensity || (intensityUnit === "RPE" ? 10 : 0);
+    // const displayedIntensity = intensity || (intensityUnit === "RPE" ? 10 : 0);
+
+    // Calculate 1RM (fallback to 0 if inputs are invalid)
+    const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
 
     return (
         <main>
@@ -62,14 +121,14 @@ export default function RepMaxCalculator() {
                     </div>
                     <div className="reps-and-intensity-container">
                         <div className="reps-input-container">
-                            <input type="number" value={reps} onChange={(e) => setReps(e.target.value)} placeholder="Reps"/>
+                            <input type="number" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
                         </div>
                         <div className="intensity-container">
                             <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                 <option value="RPE">RPE</option>
                                 <option value="RIR">RIR</option>
                             </select>
-                            <input type="number" value={intensity} onChange={(e) => setIntensity(e.target.value)} />
+                            <input type="number" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
                         </div>
                     </div>
                     <div className="weighted-pull-up-container">
@@ -104,11 +163,7 @@ export default function RepMaxCalculator() {
                                 </div>
                                 {isAdvVisible && (
                                     <div className="percentage-container">
-                                        <input
-                                            type="number"
-                                            value={percentageOfBodyweight}
-                                            onChange={(e) => setPercentageOfBodyweight(e.target.value)}
-                                        />
+                                        <input type="number" value={percentageOfBodyweight} onChange={(e) => handlePercentageOfBodyweightChange(e.target.value)} />
                                         <span>%</span>
                                     </div>
                                 )}
@@ -125,11 +180,31 @@ export default function RepMaxCalculator() {
                 </div>
                 <div className="result-container">
                     <h2>Result</h2>
-                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {displayedIntensity} equals</div>
-                    <h1>0 {weightUnit.toLowerCase()}</h1>
+                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                    <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
                 </div>
             </div>
+            <div>{weight}, 
+            {weightUnit}, 
+            {reps}, 
+            {intensityUnit}, 
+            {intensity}, 
+            {isWeightedBodyweight.toString()}, 
+            {bodyweight}, 
+            {percentageOfBodyweight}</div>
         </main>
     );
 }
-// whenever the user checks the checkbox and then opens the adv, if the user then unchecks the checkbox, the next time they check it again, it should be default have the advanced setting unopened and make sure it resetted the bodyweight percentage to the default
+
+//conditional statements to add
+// user must enter reps between 1-12
+// user must enter RPE between 4-10
+// user can enter RIR between 0-6
+// intensity can be 0.5 increments
+
+
+// on mobile:
+// i want the number keypad (like phone number) to come up
+
+// add in when user clicks enter, it takes them to next input
+
