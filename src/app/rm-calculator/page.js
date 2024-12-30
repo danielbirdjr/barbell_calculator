@@ -107,7 +107,7 @@ export default function RepMaxCalculator() {
                         </select>
                     </div>
                     <div className="weight-container">
-                        <input className="weight-input" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
+                        <input className="weight-input" type="tel" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
                         <div className="weight-units-container">
                             <div className="weight-unit left-side-weight-unit">
                                 <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
@@ -184,14 +184,6 @@ export default function RepMaxCalculator() {
                     <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
                 </div>
             </div>
-            <div>{weight}, 
-            {weightUnit}, 
-            {reps}, 
-            {intensityUnit}, 
-            {intensity}, 
-            {isWeightedBodyweight.toString()}, 
-            {bodyweight}, 
-            {percentageOfBodyweight}</div>
         </main>
     );
 }
