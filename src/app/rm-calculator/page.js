@@ -121,14 +121,14 @@ export default function RepMaxCalculator() {
                     </div>
                     <div className="reps-and-intensity-container">
                         <div className="reps-input-container">
-                            <input type="number" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
+                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
                         </div>
                         <div className="intensity-container">
                             <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                 <option value="RPE">RPE</option>
                                 <option value="RIR">RIR</option>
                             </select>
-                            <input type="number" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
+                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
                         </div>
                     </div>
                     <div className="weighted-pull-up-container">
