@@ -4,11 +4,45 @@
     align-items: center;
 }
 
+
+/* HEADER */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+
+.header-container select {
+    color: black;
+    font-size: 1.625rem;
+    font-weight: 700;
+    border: none;
+    padding: .5rem .375rem;
+    margin-bottom: 1rem;
+}
+
+
+/* RESULT CONTAINER */
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+}
+
+/* .result-container h2 {
+    padding: .5rem .375rem;
+} */
+
+.result-container h1 {
+    margin-bottom: 1rem;
+}
+
 /* DATA CONTAINER, OVERALL STRUCTURE */
 .data-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: .75fr repeat(4, 2.375rem) 1fr;
+    grid-template-rows: repeat(3, 2.375rem) 1fr;
     grid-gap: 1rem;
     width: 22rem;
     height: 24rem;
@@ -16,13 +50,6 @@
 
 input, select {
     max-width: 100%;
-}
-
-.header-container {
-    grid-column: span 3; /* Spans all three columns */
-    display: flex;
-    align-items: center;
-    justify-self: center;
 }
 
 .advanced-settings-list {
@@ -62,15 +89,6 @@ input, select {
     line-height: 1.5;
     border-radius: 5px;
     border: 1px solid lightgray;
-}
-
-
-/* HEADER ROW */
-.header-container select {
-    font-size: 1.625rem;
-    font-weight: 700;
-    border: none;
-    padding: .5rem .375rem;
 }
 
 
@@ -167,19 +185,6 @@ input, select {
 
 .advanced-settings-list {
     list-style: none;
-}
-
-
-/* RESULT CONTAINER */
-.result-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .75rem;
-}
-
-.result-container h2 {
-    padding: .5rem .375rem;
 }
 
 /* MEDIA QUERIES */

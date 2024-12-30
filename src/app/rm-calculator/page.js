@@ -99,20 +99,18 @@ export default function RepMaxCalculator() {
     return (
         <main>
             <div className="rm-calculation-container">
-                <div className="result-container">
-                    <h2>Result</h2>
-                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
-                    <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
-                </div>
-                <div className="data-container">
-                    <div className="header-container">
+                <div className="header-container">
                         <select>
                             <option>One Rep Max Calculator</option>
                             <option>Calculate # of Reps by RM</option>
                         </select>
                     </div>
-
-
+                <div className="result-container">
+                    {/* <h2>Result</h2> */}
+                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                    <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
+                </div>
+                <div className="data-container">
                     <div className="weight-container">
                         <input className="weight-input" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
                         <div className="weight-units-container">
