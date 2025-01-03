@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from "next/link";
 import './NavBar.css'; 
 import { FiMenu } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
@@ -20,7 +21,7 @@ const NavBar = () => {
         <nav className="navbar">
 
             <div className="navbar-content">
-                <a href="/" className="navbar-logo">The Name</a>
+                <Link href="/" className="navbar-logo">The Name</Link>
                 <button className={`menu-icon ${isDropdownVisible ? "hidden" : ""}`} onClick={toggleDropdown}>
                     <FiMenu />
                 </button>
@@ -29,17 +30,17 @@ const NavBar = () => {
                 </button>
             </div>
             <ul className={`dropdown-menu ${isDropdownVisible ? "visible" : ""}`}>
-                <li><a href="/barbell-calculator">Barbell Calculator</a></li>
-                <li><a href="/rm-calculator">1 Rep Max Calculator</a></li>
-                <li><a href="/rm-calculator">Reps by RM Calculator</a></li>
-                <li><a href="https://progressai.vercel.app/" target='_blank'>Fitness App</a></li>
+                <li><Link href="/barbell-calculator">Barbell Calculator</Link></li>
+                <li><Link href="/rm-calculator">1 Rep Max Calculator</Link></li>
+                <li><Link href="/rm-calculator">Reps by RM Calculator</Link></li>
+                <li><Link href="https://progressai.vercel.app/" target='_blank'>Fitness App</Link></li>
             </ul>
 
             <ul className="nav-links">
-                <li><a href="/barbell-calculator">Barbell Calculator</a></li>
-                <li><a href="/rm-calculator">1 Rep Max Calculator</a></li>
-                <li><a href="/rm-calculator">Reps by RM Calculator</a></li>
-                <li><a href="/">Fitness App</a></li>
+                <li><Link href="/barbell-calculator">Barbell Calculator</Link></li>
+                <li><Link href="/rm-calculator">1 Rep Max Calculator</Link></li>
+                <li><Link href="/rm-calculator">Reps by RM Calculator</Link></li>
+                <li><Link href="https://progressai.vercel.app/" target='_blank'>Fitness App</Link></li>
             </ul>
 
         </nav>
