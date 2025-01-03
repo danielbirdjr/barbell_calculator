@@ -4,6 +4,7 @@ import { useState } from "react";
 import '../styles/globals.css'
 import './rm-calculator.css'; 
 import { FiSettings } from "react-icons/fi"; 
+import { FiMenu } from "react-icons/fi";
 import calculate1RM from "../utils/calculate1RM.mjs";
 import { useEffect } from "react";
 
@@ -101,8 +102,8 @@ export default function RepMaxCalculator() {
             <div className="rm-calculation-container">
                 <div className="header-container">
                         <select>
-                            <option>One Rep Max Calculator</option>
-                            <option>Calculate # of Reps by RM</option>
+                            <option>1 Rep Max Calculator</option>
+                            <option>Reps by RM Calculator</option>
                         </select>
                     </div>
                 <div className="result-container">
