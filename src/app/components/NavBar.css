@@ -1,48 +1,56 @@
 /* Navbar container */
 .navbar {
     background-color: rgb(19, 19, 19);
-    height: 60px;
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1rem;
-    position: relative;
+    padding: .75rem 1.75rem;
+    width: 100%;
     z-index: 1000;
-  }
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+body {
+    margin-top: 53px;
+}
   
-  /* Navbar content */
-  .navbar-content {
+/* Navbar content */
+.navbar-content {
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
-  }
-  
-  .navbar-logo {
+}
+
+.navbar-logo {
     color: white;
     font-size: 1.5rem;
     text-decoration: none;
-  }
-  
-  /* Menu icons */
-  .menu-icon {
+}
+
+/* Menu icons */
+.menu-icon {
     background: none;
     border: none;
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
-  }
-  
-  /* Hide close menu by default */
-  .close-menu.hidden,
-  .menu-icon.hidden {
+}
+
+/* Hide close menu by default */
+.close-menu.hidden,
+.menu-icon.hidden {
     display: none;
-  }
-  
-  /* Dropdown menu */
-  .dropdown-menu {
+}
+
+/* Dropdown menu */
+.dropdown-menu {
     position: absolute;
-    top: 60px; /* Just below the navbar */
+    top: 53px; /* Just below the navbar */
     left: 0;
     width: 100%;
     background-color: rgb(19, 19, 19);
@@ -52,86 +60,84 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    border-top: 1px solid white;
-  }
-  
-  .dropdown-menu.visible {
+    border-top: 1px solid #444;
+}
+
+.dropdown-menu.visible {
     display: flex;
-  }
-  
-  .dropdown-menu li {
+}
+
+.dropdown-menu li {
     width: 100%;
-  }
-  
-  .dropdown-menu a {
+}
+
+.dropdown-menu a {
     display: block;
     width: 100%;
     padding: 1rem;
     text-decoration: none;
     color: white;
     border-bottom: 1px solid #444;
-  }
-  
-  .dropdown-menu a:hover {
+    height: 52px;
+}
+
+.dropdown-menu a:hover {
     background-color: #333;
-  }
+}
 
 /* Navbar links */
 .nav-links {
-    display: none; /* Hidden by default on smaller screens */
+    display: flex; /* Hidden by default on smaller screens */
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-links li {
-    display: inline-block;
-    margin-right: 1rem;
+    list-style: none;
 }
 
 .nav-links a {
-    color: white;
+    color: rgb(230, 230, 230);
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    color: white;
 }
 
-  
-  /* Responsive styles */
+.fitness-app {
+    box-sizing: border-box;
+    border: 1px solid rgb(230, 230, 230);
+    padding: .25rem 1rem;
+    border-radius: 30px;
+}
 
-  @media (max-width: 1024px) {
+/* Responsive styles */
+@media (max-width: 1024px) {
     .menu-icon {
-      display: inline-block; /* Show hamburger menu */
+        display: inline-block; /* Show hamburger menu */
     }
-  
+
     .nav-links {
-      display: none; /* Hide links inline */
+        display: none; /* Hide links inline */
     }
-  }
-  
-  @media (min-width: 1024px) {
+}
+
+@media (min-width: 1025px) {
     .menu-icon {
-      display: none; /* Hide hamburger menu */
+        display: none; /* Hide hamburger menu */
     }
-  
+
     .dropdown-menu {
-      display: none; /* Ensure dropdown is hidden */
+        display: none; /* Ensure dropdown is hidden */
     }
-  
-    .nav-links {
-      display: flex; /* Show links inline */
-      justify-content: flex-end;
-      flex-grow: 1;
-    }
-  }
+}
 
+.navbar-content button {
+    height: 24px;
+}
 
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-  
-    .menu-icon {
-      display: inline-block;
-    }
-  }
-  
