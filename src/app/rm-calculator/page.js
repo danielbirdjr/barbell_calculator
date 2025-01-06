@@ -19,6 +19,20 @@ export default function RepMaxCalculator() {
     const [bodyweight, setBodyweight] = useState("");
     const [isAdvVisible, setIsAdvVisible] = useState(false);
     const [percentageOfBodyweight, setPercentageOfBodyweight] = useState(100);
+    const [intensityChartUnit, setIntensityChartUnit] = useState("RPE");
+    const intensityChartData = [
+        { value: 10, definition: "Max effort, not another rep"}, 
+        { value: 9.5, definition: "Maybe 1 rep left"}, 
+        { value: 9, definition: "Definitely 1 rep left"}, 
+        { value: 8.5, definition: "Maybe 2 reps left, definitely 1"}, 
+        { value: 8, definition: "Definitely 2 reps left"}, 
+        { value: 7.5, definition: "Maybe 3 reps left, definitely 2"}, 
+        { value: 7, definition: "Definitely 3 reps left"}, 
+        { value: 6.5, definition: "Maybe 4 reps left, definitely 3"}, 
+        { value: 6, definition: "Definitely 4 reps left"}, 
+    ];
+    const adjustedIntensityChartValues = intensityChartData.map((row) => ({
+        ...row, adjustedIntensityChartValues: intensityChartUnit === "RIR" ? 10 - row.value : row.value, }));
 
     useEffect(() => {
         setIntensity(intensityUnit === "RPE" ? 10 : 0);
@@ -92,7 +106,6 @@ export default function RepMaxCalculator() {
 
     const displayedWeight = weight || 0;
     const displayedReps = reps || 0;
-    // const displayedIntensity = intensity || (intensityUnit === "RPE" ? 10 : 0);
 
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
@@ -184,6 +197,25 @@ export default function RepMaxCalculator() {
                         )}
                     </div>
                 </div>
+            </div>
+            <div className="intensity-chart">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><select value={intensityChartUnit} onChange={(e) => setIntensityChartUnit(e.target.value)}>
+                                <option value="RPE">RPE</option>
+                                <option value="RIR">RIR</option>
+                            </select></th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {adjustedIntensityChartValues.map((row, index) => ( <tr key={index}>
+                            <td className="intensity-chart-intensity-column">{row.adjustedIntensityChartValues}</td>
+                            <td>{row.definition}</td>
+                        </tr>))}
+                    </tbody>
+                </table>
             </div>
         </main>
     );

@@ -44,10 +44,10 @@
 .data-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 2.375rem) 1fr;
+    grid-template-rows: repeat(4, 2.375rem);
     grid-gap: 1rem;
     width: 22rem;
-    height: 24rem;
+    margin-bottom: 2rem;
 }
 
 input, select {
@@ -81,6 +81,7 @@ input, select {
     display: flex;
     align-items: center; /* need to fix RPE select */
     justify-content: center;
+
 }
 
 .data-container input {
@@ -189,6 +190,43 @@ input, select {
     list-style: none;
 }
 
+
+/* INTENSITY CHART */
+.intensity-chart {
+    display: flex;
+    justify-content: center;
+}
+
+.intensity-chart table {
+    border-collapse: collapse;
+    background-color: black;
+    color: white;
+    width: 22rem;
+}
+
+.intensity-chart th, .intensity-chart td {
+    border: 1px solid rgb(56, 56, 56);
+    padding: .5rem 1rem;
+}
+
+.intensity-chart .intensity-chart-intensity-column {
+    text-align: center;
+}
+
+.intensity-chart th {
+    font-weight: 600;
+    border-bottom: 1px solid white;
+}
+
+.intensity-chart select {
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+}
+
+
 /* MEDIA QUERIES */
 @media (min-width: 1024px) {
     .rm-calculation-container {
@@ -248,4 +286,3 @@ input, select {
         font-size: .86rem;
     }
 }
-
