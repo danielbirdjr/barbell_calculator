@@ -54,7 +54,7 @@ export default function calculateWeightForReps(weight, weightUnit, reps, intensi
     } else {
         // calculate weight for reps for weighted pull up/dip
         const calculatedBodyweight = bodyweight * (percentageOfBodyweight / 100);
-        weightForReps = (oneRepMax * percentageForWeightForReps) - calculatedBodyweight;
+        weightForReps = ((oneRepMax + calculatedBodyweight) * percentageForWeightForReps) - calculatedBodyweight;
     }
 
     // return rounded weightForReps based on LB or KG and isWeightedBodyweight
@@ -68,3 +68,9 @@ export default function calculateWeightForReps(weight, weightUnit, reps, intensi
         return 2.5 * Math.round(weightForReps / 2.5);
     } 
 }
+
+// Test Case Example
+const testResult1 = calculateWeightForReps(110, "LB", 2, "RPE", 9, true, 195, 100, 5, 9);
+// weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity
+
+console.log(testResult1);
