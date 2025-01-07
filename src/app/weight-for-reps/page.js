@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import '../styles/globals.css';
-import './rm-calculator.css'; 
+import '/Users/danielbird/Documents/Coding/barbell_calculator/src/app/rm-calculator/rm-calculator.css'
 import { FiSettings } from "react-icons/fi"; 
 import calculate1RM from "../utils/calculate1RM.mjs";
 import { useEffect } from "react";

@@ -15,12 +15,13 @@
 
 .header-container select {
     color: black;
-    font-size: 1.625rem;
+    font-size: 1.5rem;
     font-weight: 700;
     border: none;
     padding: .5rem .375rem;
     border-radius: 5px;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 
@@ -206,7 +207,7 @@ input, select {
 
 .intensity-chart th, .intensity-chart td {
     border: 1px solid rgb(56, 56, 56);
-    padding: .5rem 1rem;
+    padding: .5rem;
 }
 
 .intensity-chart .intensity-chart-intensity-column {
