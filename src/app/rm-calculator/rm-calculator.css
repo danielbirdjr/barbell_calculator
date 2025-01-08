@@ -229,7 +229,7 @@ input, select {
 
 
 /* MEDIA QUERIES */
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     .rm-calculation-container {
         display: flex;
         flex-direction: row;
@@ -243,7 +243,7 @@ input, select {
     }
 
     
-}
+} */
 
 @media (max-width: 768px) {
     
@@ -286,4 +286,28 @@ input, select {
     .advanced-settings-list {
         font-size: .86rem;
     }
+}
+
+
+/* WEIGHT FOR REPS CALCULATOR */
+#weight-for-reps-calculator .reps-and-intensity-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 2.375rem 2.375rem 0 2.375rem;
+    grid-gap: 1rem;
+}
+
+#weight-for-reps-calculator label {
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(19, 19, 19);
+    color: white;
+    border-radius: 5px;
+}
+
+#weight-for-reps-calculator span {
+    grid-column: span 3;
+    height: 0;
 }

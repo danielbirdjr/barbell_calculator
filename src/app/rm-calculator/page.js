@@ -5,6 +5,7 @@ import '../styles/globals.css';
 import './rm-calculator.css'; 
 import { FiSettings } from "react-icons/fi"; 
 import calculate1RM from "../utils/calculate1RM.mjs";
+import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useEffect } from "react";
 
 
@@ -106,6 +107,11 @@ export default function RepMaxCalculator() {
     const displayedWeight = weight || 0;
     const displayedReps = reps || 0;
 
+    // which calculator?
+    const [calculatorType, setCalculatorType] = useState("1 RM Calculator");
+    const [targetReps, setTargetReps] = useState("");
+    const [targetIntensity, setTargetIntensity] = useState(intensityUnit === "RPE" ? 10 : 0);
+
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
 
@@ -113,18 +119,34 @@ export default function RepMaxCalculator() {
         <main>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                        <select>
+                        <select value={calculatorType} onChange={(e) => setCalculatorType(e.target.value)}>
                             <option>1 RM Calculator</option>
                             <option>Weight for Reps Calculator</option>
                         </select>
                     </div>
                 <div className="result-container">
-                    {/* <h2>Result</h2> */}
                     <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
                     <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
                 </div>
                 <div className="data-container">
                     <div className="weight-container">
+                        {calculatorType === "Weight for Reps Calculator" && (
+                            <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
+                                <label>Targets</label>
+                                <div className="reps-input-container">
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
+                                </div>
+                                <div className="intensity-container">
+                                    <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
+                                        <option value="RPE">RPE</option>
+                                        <option value="RIR">RIR</option>
+                                    </select>
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
+                                </div>
+                                <span></span>
+                                <label className="known-rm-label">Known RM</label>
+                            </div>
+                        )}
                         <input className="weight-input" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
                         <div className="weight-units-container">
                             <div className="weight-unit left-side-weight-unit">
