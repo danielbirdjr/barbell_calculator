@@ -37,6 +37,10 @@ export default function RepMaxCalculator() {
     useEffect(() => {
         setIntensity(intensityUnit === "RPE" ? 10 : 0);
     }, [intensityUnit]);
+    
+    useEffect(() => {
+        setTargetIntensity(intensityUnit === "RPE" ? 10 : 0);
+    }, [intensityUnit]);
 
     const handleCheckboxChange = (checked) => {
         setIsWeightedBodyweight(checked);
@@ -54,6 +58,17 @@ export default function RepMaxCalculator() {
         } else if (value === "") {
             // Allow clearing the input
             setReps("");
+        }
+    };
+
+    const handleTargetRepChange = (value) => {
+        // Allow only whole numbers between 1 and 12
+        const numericValue = parseInt(value, 10);
+        if (!isNaN(numericValue) && numericValue >= 1 && numericValue <= 12) {
+            setTargetReps(numericValue);
+        } else if (value === "") {
+            // Allow clearing the input
+            setTargetReps("");
         }
     };
 
@@ -85,6 +100,28 @@ export default function RepMaxCalculator() {
         }
     };
 
+    const handleTargetIntensityBlur = () => {
+        const numericValue = parseFloat(targetIntensity);
+    
+        if (intensityUnit === "RPE") {
+            if (!isNaN(numericValue) && numericValue >= 4 && numericValue <= 10 && (numericValue * 10) % 5 === 0) {
+                setTargetIntensity(numericValue % 1 === 0 ? numericValue.toString() : numericValue.toFixed(1));
+            } else {
+                // Round to the nearest valid value within range
+                const clampedValue = Math.min(10, Math.max(4, Math.round(numericValue * 2) / 2));
+                setTargetIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
+            }
+        } else if (intensityUnit === "RIR") {
+            if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 6 && (numericValue * 10) % 5 === 0) {
+                setTargetIntensity(numericValue % 1 === 0 ? numericValue.toString() : numericValue.toFixed(1));
+            } else {
+                // Round to the nearest valid value within range
+                const clampedValue = Math.min(6, Math.max(0, Math.round(numericValue * 2) / 2));
+                setTargetIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
+            }
+        }
+    };
+
     const handlePercentageOfBodyweightChange = (value) => {
         // Allow only numbers between 0 and 100
         const numericValue = parseFloat(value);
@@ -112,8 +149,27 @@ export default function RepMaxCalculator() {
     const [targetReps, setTargetReps] = useState("");
     const [targetIntensity, setTargetIntensity] = useState(intensityUnit === "RPE" ? 10 : 0);
 
+    const handleTargetIntensityValueChange = (value) => {
+        if (value === "" || /^-?\d*\.?\d*$/.test(value)) {
+            setTargetIntensity(value); // Allow temporary invalid input
+        }
+    };
+
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
+    const weightForReps = weight && reps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
+
+    // let result = 0;
+
+    // if (calculatorMode === "oneRepMax") {
+    //     result = weight && reps
+    //         ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight)
+    //         : 0;
+    // } else if (calculatorMode === "weightForReps") {
+    //     result = weight && reps
+    //         ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity)
+    //         : 0;
+    // }
 
     return (
         <main>
@@ -125,8 +181,20 @@ export default function RepMaxCalculator() {
                         </select>
                     </div>
                 <div className="result-container">
-                    <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
-                    <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
+                    {calculatorType === "1RM Calculator" && (
+                        <div>
+                            <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                            <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
+                        </div>
+                    )}
+
+                    {calculatorType === "Weight for Reps Calculator" && (
+                        <div>
+                            <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                            <h1>{weightForReps} {weightUnit.toLowerCase()}</h1>
+                            <div>for {targetReps} @ {intensityUnit} {targetIntensity}</div>
+                        </div>
+                    )}
                 </div>
                 <div className="data-container">
                     <div className="weight-container">
@@ -134,14 +202,14 @@ export default function RepMaxCalculator() {
                             <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
                                 <label>Targets</label>
                                 <div className="reps-input-container">
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" />
                                 </div>
                                 <div className="intensity-container">
                                     <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                         <option value="RPE">RPE</option>
                                         <option value="RIR">RIR</option>
                                     </select>
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} />
                                 </div>
                                 <span></span>
                                 <label className="known-rm-label">Known RM</label>

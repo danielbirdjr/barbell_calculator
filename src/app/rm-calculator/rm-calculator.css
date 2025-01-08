@@ -31,6 +31,7 @@
     flex-direction: column;
     align-items: center;
     gap: .75rem;
+    margin-bottom: 1rem;
 }
 
 /* .result-container h2 {
@@ -196,6 +197,8 @@ input, select {
 .intensity-chart {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }
 
 .intensity-chart table {
