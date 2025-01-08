@@ -148,6 +148,7 @@ export default function RepMaxCalculator() {
     const [calculatorType, setCalculatorType] = useState("1 RM Calculator");
     const [targetReps, setTargetReps] = useState("");
     const [targetIntensity, setTargetIntensity] = useState(intensityUnit === "RPE" ? 10 : 0);
+    const displayedTargetReps = targetReps || 0;
 
     const handleTargetIntensityValueChange = (value) => {
         if (value === "" || /^-?\d*\.?\d*$/.test(value)) {
@@ -159,18 +160,6 @@ export default function RepMaxCalculator() {
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
     const weightForReps = weight && reps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
 
-    // let result = 0;
-
-    // if (calculatorMode === "oneRepMax") {
-    //     result = weight && reps
-    //         ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight)
-    //         : 0;
-    // } else if (calculatorMode === "weightForReps") {
-    //     result = weight && reps
-    //         ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity)
-    //         : 0;
-    // }
-
     return (
         <main>
             <div className="rm-calculation-container">
@@ -181,18 +170,18 @@ export default function RepMaxCalculator() {
                         </select>
                     </div>
                 <div className="result-container">
-                    {calculatorType === "1RM Calculator" && (
-                        <div>
+                    {calculatorType === "1 RM Calculator" && (
+                        <div className="result-container-calculator">
                             <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
                             <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
                         </div>
                     )}
 
                     {calculatorType === "Weight for Reps Calculator" && (
-                        <div>
+                        <div className="result-container-calculator">
                             <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
                             <h1>{weightForReps} {weightUnit.toLowerCase()}</h1>
-                            <div>for {targetReps} @ {intensityUnit} {targetIntensity}</div>
+                            <div>for {displayedTargetReps} reps @ {intensityUnit} {targetIntensity}</div>
                         </div>
                     )}
                 </div>

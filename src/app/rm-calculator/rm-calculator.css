@@ -34,12 +34,17 @@
     margin-bottom: 1rem;
 }
 
-/* .result-container h2 {
-    padding: .5rem .375rem;
-} */
+.result-container-calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
 
 .result-container h1 {
     margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 /* DATA CONTAINER, OVERALL STRUCTURE */
