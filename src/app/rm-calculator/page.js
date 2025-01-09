@@ -158,15 +158,15 @@ export default function RepMaxCalculator() {
 
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
-    const weightForReps = weight && reps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
+    const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
 
     return (
         <main>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                        <select value={calculatorType} onChange={(e) => setCalculatorType(e.target.value)}>
-                            <option>1 RM Calculator</option>
-                            <option>Weight for Reps Calculator</option>
+                        <select value={calculatorType} onChange={(e) => {console.log("Selected Calculator:", e.target.value); setCalculatorType(e.target.value);}}>
+                            <option value="1 RM Calculator">1 RM Calculator</option>
+                            <option value="Weight for Reps Calculator">Weight for Reps Calculator</option>
                         </select>
                     </div>
                 <div className="result-container">

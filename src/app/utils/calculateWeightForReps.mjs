@@ -70,7 +70,7 @@ export default function calculateWeightForReps(weight, weightUnit, reps, intensi
 }
 
 // Test Case Example
-const testResult1 = calculateWeightForReps(110, "LB", 2, "RPE", 9, true, 195, 100, 5, 9);
-// weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity
+// const testResult1 = calculateWeightForReps(110, "LB", 2, "RPE", 9, true, 195, 100, 5, 9);
+// // weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity
 
-console.log(testResult1);
+// console.log(testResult1);
