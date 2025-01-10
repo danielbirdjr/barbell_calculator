@@ -7,6 +7,8 @@ import { FiSettings } from "react-icons/fi";
 import calculate1RM from "../utils/calculate1RM.mjs";
 import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useEffect } from "react";
+import React, {useRef} from "react";
+import next from "next";
 
 
 export default function RepMaxCalculator() {
@@ -156,6 +158,20 @@ export default function RepMaxCalculator() {
         }
     };
 
+    // Enter key for next input box
+    const weightInputRef = useRef(null);
+    const repsInputRef = useRef(null);
+    const intensityInputRef = useRef(null);
+    const targetRepsInputRef = useRef(null);
+    const targetIntensityInputRef = useRef(null);
+
+    // Focus handler
+    const handleEnterKey = (event, nextInputRef) => {
+        if (event.key === "Enter" && nextInputRef.current) {
+            nextInputRef.current.focus();
+        }
+    }
+
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
@@ -191,20 +207,20 @@ export default function RepMaxCalculator() {
                             <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
                                 <label>Targets</label>
                                 <div className="reps-input-container">
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" />
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" ref={targetRepsInputRef} onKeyDown={(e) => handleEnterKey(e, targetIntensityInputRef)} />
                                 </div>
                                 <div className="intensity-container">
                                     <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                         <option value="RPE">RPE</option>
                                         <option value="RIR">RIR</option>
                                     </select>
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} />
+                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} ref={targetIntensityInputRef} onKeyDown={(e) => handleEnterKey(e, weightInputRef)} />
                                 </div>
                                 <span></span>
                                 <label className="known-rm-label">Known RM</label>
                             </div>
                         )}
-                        <input className="weight-input" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight"/>
+                        <input className="weight-input" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight" ref={weightInputRef} onKeyDown={(e) => handleEnterKey(e, repsInputRef)} />
                         <div className="weight-units-container">
                             <div className="weight-unit left-side-weight-unit">
                                 <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
@@ -218,14 +234,14 @@ export default function RepMaxCalculator() {
                     </div>
                     <div className="reps-and-intensity-container">
                         <div className="reps-input-container">
-                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" />
+                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" ref={repsInputRef} onKeyDown={(e) => handleEnterKey(e, intensityInputRef)} />
                         </div>
                         <div className="intensity-container">
                             <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                 <option value="RPE">RPE</option>
                                 <option value="RIR">RIR</option>
                             </select>
-                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} />
+                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} ref={intensityInputRef} />
                         </div>
                     </div>
                     <div className="weighted-pull-up-container">
@@ -295,19 +311,53 @@ export default function RepMaxCalculator() {
                     </tbody>
                 </table>
             </div>
+            <div>
+                {calculatorType === "1 RM Calculator" && (
+                    <div>
+                        <h2>The 1 RM Calculator</h2>
+                        <p>Estimate your 1 rep max with ease.</p>
+                        <p>For best accuracy, use sets with lower reps done close to failure.</p>
+                        <h3>How to Use</h3>
+                        <ul>
+                            <li>Enter the weight used.</li>
+                            <li>Enter the number of reps (between 1-12).</li>
+                            <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
+                        </ul>
+                    </div>
+                )}
+                {calculatorType === "Weight for Reps Calculator" && (
+                    <div>
+                        <h2>The Weight for Reps Calculator</h2>
+                        <p>Find the weight you can lift for a given number of reps.</p>
+                        <p><strong>Ex:</strong> Find your 5 rep max @ RPE 9 using any known rep max.</p>
+                        <h3>How to Use</h3>
+                        <h4>Targets</h4>
+                        <ul>
+                            <li>Enter your target number of reps.</li>
+                            <li>Enter your target RPE (4-10) or RIR (0-6).</li>
+                        </ul>
+                        <h4>Known Rep Max</h4>
+                        <ul>
+                            <li>Enter the weight used.</li>
+                            <li>Enter the number of reps (between 1-12).</li>
+                            <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
+                        </ul>
+                    </div>
+                )}
+            </div>
+
+
         </main>
     );
 }
 
-//conditional statements to add
-// user must enter reps between 1-12
-// user must enter RPE between 4-10
-// user can enter RIR between 0-6
-// intensity can be 0.5 increments
-
-
-// on mobile:
-// i want the number keypad (like phone number) to come up
-
 // add in when user clicks enter, it takes them to next input
 
+// add it so when the user clicks/taps on an input box, it temperarily clears it so they dont have to first delete the input to enter in the new input
+// if they click out of it before entering an input, it should resort back to what was there before
+
+// add a pop up help thing that says you can only enter between 1-12 reps and the RPE and RIR must be between 4-10 and 0-6 with 0.5 incremements
+
+// i would like to add is in the navbar i have links to the 1 RM calculator and the Weight for Reps Calculator. since i currently dont have seperate pages/routes for each, how do i make it so that when i click on one of the links it takes them to that specific calculator and it clears any of the input data if there was any
+
+// style the bottom info section

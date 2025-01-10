@@ -111,3 +111,13 @@ export default function BarbellCalculator() {
     </main>
   );
 }
+
+// Change it to automatically display barbell weights and get rid of calculate button
+
+// figure out something for the current Barbell Calculator and reset button
+
+// on mobile, for LBS the bar sleeve disappears for: 675, 725, 745, 765
+
+// add in micro plate option
+// add in weighted pull up/dip visual
+// add in custom barbell weights
