@@ -171,41 +171,44 @@ export default function RepMaxCalculator() {
     }
 
     // clear input code
-    const inputElements = document.querySelectorAll(".inputValueClear");
+    useEffect(() => {
+        const inputElements = document.querySelectorAll(".inputValueClear");
 
-    inputElements.forEach((inputElement) => {
-        if (inputElement) {
-            // store original value
-            let originalValue = inputElement.value;
-    
-            inputElement.addEventListener("focus", () => {
-                // If the input field still has the original value, lighten it
-                if (inputElement.value === originalValue) {
-                    inputElement.classList.add("input-placeholder");
-                    inputElement.value = ""; // Clear the input but keep it visually
-                    inputElement.placeholder = originalValue; // Show placeholder
-                }
-            });
-    
-            inputElement.addEventListener("input", () => {
-                // Remove placeholder styling as user types
-                inputElement.classList.remove("input-placeholder");
-                inputElement.placeholder = ""; // Clear placeholder
-            });
-    
-            inputElement.addEventListener("blur", () => {
-                // Restore the original value if no new input is entered
-                if (!inputElement.value.trim()) {
-                    inputElement.value = originalValue; // Restore previous value
+        inputElements.forEach((inputElement) => {
+            if (inputElement) {
+                // store original value
+                let originalValue = inputElement.value;
+        
+                inputElement.addEventListener("focus", () => {
+                    // If the input field still has the original value, lighten it
+                    if (inputElement.value === originalValue) {
+                        inputElement.classList.add("input-placeholder");
+                        inputElement.value = ""; // Clear the input but keep it visually
+                        inputElement.placeholder = originalValue; // Show placeholder
+                    }
+                });
+        
+                inputElement.addEventListener("input", () => {
+                    // Remove placeholder styling as user types
                     inputElement.classList.remove("input-placeholder");
                     inputElement.placeholder = ""; // Clear placeholder
-                } else {
-                    // Update the original value to the new input
-                    originalValue = inputElement.value;
-                }
-            });
-        }
-    })
+                });
+        
+                inputElement.addEventListener("blur", () => {
+                    // Restore the original value if no new input is entered
+                    if (!inputElement.value.trim()) {
+                        inputElement.value = originalValue; // Restore previous value
+                        inputElement.classList.remove("input-placeholder");
+                        inputElement.placeholder = ""; // Clear placeholder
+                    } else {
+                        // Update the original value to the new input
+                        originalValue = inputElement.value;
+                    }
+                });
+            }
+        });
+    }, []); // Empty dependency array ensures this runs only on mount
+    
 
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
