@@ -172,6 +172,79 @@ export default function RepMaxCalculator() {
         }
     }
 
+    // clear input code
+    const inputElements = document.querySelectorAll(".inputValueClear");
+
+    inputElements.forEach((inputElement) => {
+        if (inputElement) {
+            // store original value
+            let originalValue = inputElement.value;
+    
+            inputElement.addEventListener("focus", () => {
+                // If the input field still has the original value, lighten it
+                if (inputElement.value === originalValue) {
+                    inputElement.classList.add("input-placeholder");
+                    inputElement.value = ""; // Clear the input but keep it visually
+                    inputElement.placeholder = originalValue; // Show placeholder
+                }
+            });
+    
+            inputElement.addEventListener("input", () => {
+                // Remove placeholder styling as user types
+                inputElement.classList.remove("input-placeholder");
+                inputElement.placeholder = ""; // Clear placeholder
+            });
+    
+            inputElement.addEventListener("blur", () => {
+                // Restore the original value if no new input is entered
+                if (!inputElement.value.trim()) {
+                    inputElement.value = originalValue; // Restore previous value
+                    inputElement.classList.remove("input-placeholder");
+                    inputElement.placeholder = ""; // Clear placeholder
+                } else {
+                    // Update the original value to the new input
+                    originalValue = inputElement.value;
+                }
+            });
+        }
+    })
+
+    // if (inputValueClear) {
+    //     // store original value
+    //     let originalValue = inputValueClear.value;
+
+    //     inputValueClear.addEventListener("focus", () => {
+    //         // If the input field still has the original value, lighten it
+    //         if (inputValueClear.value === originalValue) {
+    //             inputValueClear.classList.add("input-placeholder");
+    //             inputValueClear.value = ""; // Clear the input but keep it visually
+    //             inputValueClear.placeholder = originalValue; // Show placeholder
+    //         }
+    //     });
+
+    //     inputValueClear.addEventListener("input", () => {
+    //         // Remove placeholder styling as user types
+    //         inputValueClear.classList.remove("input-placeholder");
+    //         inputValueClear.placeholder = ""; // Clear placeholder
+    //     });
+
+    //     inputValueClear.addEventListener("blur", () => {
+    //         // Restore the original value if no new input is entered
+    //         if (!inputValueClear.value.trim()) {
+    //             inputValueClear.value = originalValue; // Restore previous value
+    //             inputValueClear.classList.remove("input-placeholder");
+    //             inputValueClear.placeholder = ""; // Clear placeholder
+    //         } else {
+    //             // Update the original value to the new input
+    //             originalValue = inputValueClear.value;
+    //         }
+    //     });
+    // } else {
+    //     console.warn("Element with ID 'inputValueClear' not found.");
+    // }
+
+
+
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
@@ -207,20 +280,20 @@ export default function RepMaxCalculator() {
                             <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
                                 <label>Targets</label>
                                 <div className="reps-input-container">
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" ref={targetRepsInputRef} onKeyDown={(e) => handleEnterKey(e, targetIntensityInputRef)} />
+                                    <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" ref={targetRepsInputRef} onKeyDown={(e) => handleEnterKey(e, targetIntensityInputRef)} />
                                 </div>
                                 <div className="intensity-container">
                                     <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                         <option value="RPE">RPE</option>
                                         <option value="RIR">RIR</option>
                                     </select>
-                                    <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} ref={targetIntensityInputRef} onKeyDown={(e) => handleEnterKey(e, weightInputRef)} />
+                                    <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} ref={targetIntensityInputRef} onKeyDown={(e) => handleEnterKey(e, weightInputRef)} />
                                 </div>
                                 <span></span>
                                 <label className="known-rm-label">Known RM</label>
                             </div>
                         )}
-                        <input className="weight-input" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight" ref={weightInputRef} onKeyDown={(e) => handleEnterKey(e, repsInputRef)} />
+                        <input className="weight-input inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight" ref={weightInputRef} onKeyDown={(e) => handleEnterKey(e, repsInputRef)} />
                         <div className="weight-units-container">
                             <div className="weight-unit left-side-weight-unit">
                                 <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
@@ -234,14 +307,14 @@ export default function RepMaxCalculator() {
                     </div>
                     <div className="reps-and-intensity-container">
                         <div className="reps-input-container">
-                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" ref={repsInputRef} onKeyDown={(e) => handleEnterKey(e, intensityInputRef)} />
+                            <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" ref={repsInputRef} onKeyDown={(e) => handleEnterKey(e, intensityInputRef)} />
                         </div>
                         <div className="intensity-container">
                             <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
                                 <option value="RPE">RPE</option>
                                 <option value="RIR">RIR</option>
                             </select>
-                            <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} ref={intensityInputRef} />
+                            <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} ref={intensityInputRef} />
                         </div>
                     </div>
                     <div className="weighted-pull-up-container">
@@ -268,6 +341,7 @@ export default function RepMaxCalculator() {
                             <div className="bodyweight-and-percentage-container">
                                 <div className="bodyweight-container">
                                     <input
+                                        className="inputValueClear"
                                         type="number"
                                         value={bodyweight}
                                         onChange={(e) => setBodyweight(e.target.value)}
@@ -276,7 +350,7 @@ export default function RepMaxCalculator() {
                                 </div>
                                 {isAdvVisible && (
                                     <div className="percentage-container">
-                                        <input type="number" value={percentageOfBodyweight} onChange={(e) => handlePercentageOfBodyweightChange(e.target.value)} />
+                                        <input className="inputValueClear" type="number" value={percentageOfBodyweight} onChange={(e) => handlePercentageOfBodyweightChange(e.target.value)} />
                                         <span>%</span>
                                     </div>
                                 )}

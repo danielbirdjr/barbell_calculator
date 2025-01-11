@@ -319,3 +319,7 @@ input, select {
     grid-column: span 3;
     height: 0;
 }
+
+.input-placeholder {
+    color: gray;
+}
