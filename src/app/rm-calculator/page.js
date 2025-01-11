@@ -1,14 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useEffect, useRef, Suspense} from "react";
 import '../styles/globals.css';
 import './rm-calculator.css'; 
 import { FiSettings } from "react-icons/fi"; 
 import calculate1RM from "../utils/calculate1RM.mjs";
 import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
-import { useEffect } from "react";
-import React, {useRef} from "react";
-
 import { useSearchParams } from "next/navigation";
 
 export default function RepMaxCalculator() {
@@ -218,18 +215,24 @@ export default function RepMaxCalculator() {
     
     
     // links to seperate calculators
-    const searchParams = useSearchParams();
-    const calculatorParam = searchParams.get('calculator');
-
-    useEffect(() => {
-        if (calculatorParam) {
-            setCalculatorType(calculatorParam === 'reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
-        }
-    }, [calculatorParam]);
-
+    function CalculatorTypeSelector({ setCalculatorType }) {
+        const searchParams = useSearchParams();
+        const calculatorParam = searchParams.get('calculator');
+      
+        useEffect(() => {
+          if (calculatorParam) {
+            setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+          }
+        }, [calculatorParam, setCalculatorType]);
+      
+        return null; // This component only handles the URL parameter logic
+      }
 
     return (
         <main>
+            <Suspense fallback={<div>Loading...</div>}>
+                <CalculatorTypeSelector setCalculatorType={setCalculatorType} />
+            </Suspense>
             <div className="rm-calculation-container">
                 <div className="header-container">
                         <select value={calculatorType} onChange={(e) => setCalculatorType(e.target.value)}>                        

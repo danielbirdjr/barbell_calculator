@@ -68,8 +68,6 @@ const NavBar = () => {
             </div>
             <ul className={`dropdown-menu ${isDropdownVisible ? "visible" : ""}`}>
                 <li><Link href="/barbell-calculator">Barbell Calculator</Link></li>
-                {/* <li><Link href="/rm-calculator">1 RM Calculator</Link></li>
-                <li><Link href="/rm-calculator">Weight for Reps Calculator</Link></li> */}
                 <li><Link href="/rm-calculator?calculator=1RM">1 RM Calculator</Link></li>
                 <li><Link href="/rm-calculator?calculator=Weight-for-Reps">Weight for Reps Calculator</Link></li>
                 <li><Link href="https://progressai.vercel.app/" target='_blank'>Fitness App</Link></li>
