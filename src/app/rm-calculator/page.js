@@ -8,8 +8,6 @@ import calculate1RM from "../utils/calculate1RM.mjs";
 import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useEffect } from "react";
 import React, {useRef} from "react";
-import next from "next";
-
 
 export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
@@ -209,42 +207,6 @@ export default function RepMaxCalculator() {
         }
     })
 
-    // if (inputValueClear) {
-    //     // store original value
-    //     let originalValue = inputValueClear.value;
-
-    //     inputValueClear.addEventListener("focus", () => {
-    //         // If the input field still has the original value, lighten it
-    //         if (inputValueClear.value === originalValue) {
-    //             inputValueClear.classList.add("input-placeholder");
-    //             inputValueClear.value = ""; // Clear the input but keep it visually
-    //             inputValueClear.placeholder = originalValue; // Show placeholder
-    //         }
-    //     });
-
-    //     inputValueClear.addEventListener("input", () => {
-    //         // Remove placeholder styling as user types
-    //         inputValueClear.classList.remove("input-placeholder");
-    //         inputValueClear.placeholder = ""; // Clear placeholder
-    //     });
-
-    //     inputValueClear.addEventListener("blur", () => {
-    //         // Restore the original value if no new input is entered
-    //         if (!inputValueClear.value.trim()) {
-    //             inputValueClear.value = originalValue; // Restore previous value
-    //             inputValueClear.classList.remove("input-placeholder");
-    //             inputValueClear.placeholder = ""; // Clear placeholder
-    //         } else {
-    //             // Update the original value to the new input
-    //             originalValue = inputValueClear.value;
-    //         }
-    //     });
-    // } else {
-    //     console.warn("Element with ID 'inputValueClear' not found.");
-    // }
-
-
-
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
@@ -422,9 +384,5 @@ export default function RepMaxCalculator() {
         </main>
     );
 }
-
-
-
-// add a pop up help thing that says you can only enter between 1-12 reps and the RPE and RIR must be between 4-10 and 0-6 with 0.5 incremements
 
 // i would like to add is in the navbar i have links to the 1 RM calculator and the Weight for Reps Calculator. since i currently dont have seperate pages/routes for each, how do i make it so that when i click on one of the links it takes them to that specific calculator and it clears any of the input data if there was any
