@@ -385,12 +385,12 @@ export default function RepMaxCalculator() {
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div className="info-bottom-section">
                 {calculatorType === "1 RM Calculator" && (
-                    <div>
+                    <div className="calculator-info-bottom-section">
                         <h2>The 1 RM Calculator</h2>
                         <p>Estimate your 1 rep max with ease.</p>
-                        <p>For best accuracy, use sets with lower reps done close to failure.</p>
+                        <p>For best accuracy, use set with lower reps done close to failure.</p>
                         <h3>How to Use</h3>
                         <ul>
                             <li>Enter the weight used.</li>
@@ -400,17 +400,17 @@ export default function RepMaxCalculator() {
                     </div>
                 )}
                 {calculatorType === "Weight for Reps Calculator" && (
-                    <div>
+                    <div className="calculator-info-bottom-section">
                         <h2>The Weight for Reps Calculator</h2>
                         <p>Find the weight you can lift for a given number of reps.</p>
-                        <p><strong>Ex:</strong> Find your 5 rep max @ RPE 9 using any known rep max.</p>
+                        <p><strong>Ex:</strong> Find 5 rep max @ RPE 9 using any known rep max.</p>
                         <h3>How to Use</h3>
                         <h4>Targets</h4>
                         <ul>
                             <li>Enter your target number of reps.</li>
                             <li>Enter your target RPE (4-10) or RIR (0-6).</li>
                         </ul>
-                        <h4>Known Rep Max</h4>
+                        <h4 className="known-rep-max">Known Rep Max</h4>
                         <ul>
                             <li>Enter the weight used.</li>
                             <li>Enter the number of reps (between 1-12).</li>
@@ -419,19 +419,12 @@ export default function RepMaxCalculator() {
                     </div>
                 )}
             </div>
-
-
         </main>
     );
 }
 
-// add in when user clicks enter, it takes them to next input
 
-// add it so when the user clicks/taps on an input box, it temperarily clears it so they dont have to first delete the input to enter in the new input
-// if they click out of it before entering an input, it should resort back to what was there before
 
 // add a pop up help thing that says you can only enter between 1-12 reps and the RPE and RIR must be between 4-10 and 0-6 with 0.5 incremements
 
 // i would like to add is in the navbar i have links to the 1 RM calculator and the Weight for Reps Calculator. since i currently dont have seperate pages/routes for each, how do i make it so that when i click on one of the links it takes them to that specific calculator and it clears any of the input data if there was any
-
-// style the bottom info section

@@ -204,6 +204,8 @@ input, select {
     justify-content: center;
     margin-top: 2rem;
     margin-bottom: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .intensity-chart table {
@@ -275,7 +277,6 @@ input, select {
 @media (max-width: 380px) {
     .data-container {
         width: 19rem;
-        height: 22rem;
     }
 
     .header-container select {
@@ -322,4 +323,37 @@ input, select {
 
 .input-placeholder {
     color: gray;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.calculator-info-bottom-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.calculator-info-bottom-section h2, .calculator-info-bottom-section h3 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.calculator-info-bottom-section h3 {
+    margin-top: 1rem;
+}
+.calculator-info-bottom-section .known-rep-max {
+    margin-top: 1rem;
+}
+
+.calculator-info-bottom-section li {
+    list-style: none;
 }
