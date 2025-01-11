@@ -9,6 +9,8 @@ import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useEffect } from "react";
 import React, {useRef} from "react";
 
+import { useSearchParams } from "next/navigation";
+
 export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
     const [reps, setReps] = useState("");
@@ -213,12 +215,24 @@ export default function RepMaxCalculator() {
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax = weight && reps ? calculate1RM(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight) : 0;
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
+    
+    
+    // links to seperate calculators
+    const searchParams = useSearchParams();
+    const calculatorParam = searchParams.get('calculator');
+
+    useEffect(() => {
+        if (calculatorParam) {
+            setCalculatorType(calculatorParam === 'reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+        }
+    }, [calculatorParam]);
+
 
     return (
         <main>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                        <select value={calculatorType} onChange={(e) => {console.log("Selected Calculator:", e.target.value); setCalculatorType(e.target.value);}}>
+                        <select value={calculatorType} onChange={(e) => setCalculatorType(e.target.value)}>                        
                             <option value="1 RM Calculator">1 RM Calculator</option>
                             <option value="Weight for Reps Calculator">Weight for Reps Calculator</option>
                         </select>
