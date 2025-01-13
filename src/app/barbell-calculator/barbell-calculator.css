@@ -1,9 +1,7 @@
 .nav-bar {
     display: flex;
     justify-content: center;
-    background-color: rgb(40, 40, 40);
     padding: .5rem 1rem;
-    color: white;
     align-items: center;
 }
 
