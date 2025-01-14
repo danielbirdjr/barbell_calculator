@@ -129,7 +129,7 @@ export default function BarbellCalculator() {
       <div className="calculation-and-options-container">
         <div className="enter-weight-and-input-container">
           <h3>Enter Weight</h3>
-          <input className="inputValueClear" type="number" value={totalWeight} onChange={(e) => setTotalWeight(e.target.value)}></input>
+          <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={totalWeight} onChange={(e) => setTotalWeight(e.target.value)}></input>
         </div>
         <div className="options-container">
           <div className="units-container">
@@ -155,18 +155,13 @@ export default function BarbellCalculator() {
             </div>
           </div>
         </div>
-        {/* <div className="calculate-button-container">
-          <button onClick={() => setResult(calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates))}>Calculate Plates</button>
-        </div> */}
       </div>
     </main>
   );
 }
 
-// Change it to automatically display barbell weights and get rid of calculate button
-
-// on mobile, for LBS the bar sleeve disappears for: 675, 725, 745, 765
-
 // add in micro plate option
 // add in weighted pull up/dip visual
 // add in custom barbell weights
+
+// change the keypad
