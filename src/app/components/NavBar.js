@@ -81,7 +81,7 @@ const NavBar = () => {
         <nav className="navbar">
 
             <div className="navbar-content">
-                <Link href="/" className="navbar-logo">The Name</Link>
+                <Link href="/" className="navbar-logo">ProgressAI</Link>
                 <button className={`menu-icon ${isDropdownVisible ? "hidden" : ""}`} onClick={toggleDropdown}><FiMenu /></button>
                 <button className={`menu-icon close-menu ${isDropdownVisible ? "" : "hidden"}`} onClick={closeDropdown} ><FiX /></button>
             </div>

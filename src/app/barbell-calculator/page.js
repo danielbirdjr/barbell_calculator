@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../styles/globals.css'
 import './barbell-calculator.css'; 
 import { FiRotateCcw } from "react-icons/fi";
@@ -22,6 +22,17 @@ export default function BarbellCalculator() {
   const [totalWeight, setTotalWeight] = useState("");
   const [result, setResult] = useState(null);
 
+  // Automatically calculate plates when inputs change
+  useEffect(() => {
+      if (totalWeight && barbellWeight && weightUnit) {
+          const calculatedPlates = calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates);
+          setResult(calculatedPlates);
+      } else {
+          setResult(null); // Clear results when inputs are invalid or empty
+      }
+  }, [totalWeight, barbellWeight, weightUnit]);
+
+
   function handleUnitChange(unit) {
     setWeightUnit(unit);
     setBarbellWeight(barbellOptions[unit][0]);  // Reset/default to first opt of unit
@@ -35,9 +46,49 @@ export default function BarbellCalculator() {
     setTotalWeight("");
   }
 
+  // clear input code
+  useEffect(() => {
+      const inputElements = document.querySelectorAll(".inputValueClear");
+
+      inputElements.forEach((inputElement) => {
+          if (inputElement) {
+              // store original value
+              let originalValue = inputElement.value;
+      
+              inputElement.addEventListener("focus", () => {
+                  // If the input field still has the original value, lighten it
+                  if (inputElement.value === originalValue) {
+                      inputElement.classList.add("input-placeholder");
+                      inputElement.value = ""; // Clear the input but keep it visually
+                      inputElement.placeholder = originalValue; // Show placeholder
+                  }
+              });
+      
+              inputElement.addEventListener("input", () => {
+                  // Remove placeholder styling as user types
+                  inputElement.classList.remove("input-placeholder");
+                  inputElement.placeholder = ""; // Clear placeholder
+              });
+      
+              inputElement.addEventListener("blur", () => {
+                  // Restore the original value if no new input is entered
+                  if (!inputElement.value.trim()) {
+                      inputElement.value = originalValue; // Restore previous value
+                      inputElement.classList.remove("input-placeholder");
+                      inputElement.placeholder = ""; // Clear placeholder
+                  } else {
+                      // Update the original value to the new input
+                      originalValue = inputElement.value;
+                  }
+              });
+          }
+      });
+  }, []); // Empty dependency array ensures this runs only on mount
+
+
   return (
     <main>
-      <div className="nav-bar">
+      <div className="title-container">
         <h1>Barbell Calculator</h1>
         <button onClick={() => {resetPlatesDisplay(); resetWeightInput(); }}><FiRotateCcw /></button>
       </div>
@@ -78,7 +129,7 @@ export default function BarbellCalculator() {
       <div className="calculation-and-options-container">
         <div className="enter-weight-and-input-container">
           <h3>Enter Weight</h3>
-          <input type="number" value={totalWeight} onChange={(e) => setTotalWeight(e.target.value)}></input>
+          <input className="inputValueClear" type="number" value={totalWeight} onChange={(e) => setTotalWeight(e.target.value)}></input>
         </div>
         <div className="options-container">
           <div className="units-container">
@@ -104,17 +155,15 @@ export default function BarbellCalculator() {
             </div>
           </div>
         </div>
-        <div className="calculate-button-container">
+        {/* <div className="calculate-button-container">
           <button onClick={() => setResult(calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates))}>Calculate Plates</button>
-        </div>
+        </div> */}
       </div>
     </main>
   );
 }
 
 // Change it to automatically display barbell weights and get rid of calculate button
-
-// figure out something for the current Barbell Calculator and reset button
 
 // on mobile, for LBS the bar sleeve disappears for: 675, 725, 745, 765
 

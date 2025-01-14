@@ -1,14 +1,17 @@
-.nav-bar {
+.title-container {
     display: flex;
     justify-content: center;
-    padding: .5rem 1rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 0rem;
     align-items: center;
 }
 
-.nav-bar button {
+.title-container button {
     background-color: rgb(230, 73, 73);
     border: none;
-    margin-left: 3rem;
+    margin-left: 1.5rem;
     padding: .5rem;
     display: flex;
     align-items: center;
@@ -18,7 +21,7 @@
     border-radius: .25rem;
 }
 
-.nav-bar button:hover {
+.title-container button:hover {
     background-color: rgb(200, 73, 73);
     cursor: pointer;
 }
@@ -176,7 +179,7 @@ KG plates widths
 .barbell-display {
     display: flex;
     align-items: center;
-    height: 13.5rem;
+    height: 12.59rem;
     width: 62rem;
 }
 
@@ -858,7 +861,7 @@ KG plates widths
 }
 
 @media (max-width: 400px) {
-    .nav-bar h1 {
+    .title-container h1 {
         font-size: 1.45em;
     }
     /* .barbell-display {

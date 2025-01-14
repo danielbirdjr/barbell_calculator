@@ -404,5 +404,3 @@ export default function RepMaxCalculator() {
         </main>
     );
 }
-
-// i would like to add is in the navbar i have links to the 1 RM calculator and the Weight for Reps Calculator. since i currently dont have seperate pages/routes for each, how do i make it so that when i click on one of the links it takes them to that specific calculator and it clears any of the input data if there was any
