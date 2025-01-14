@@ -154,14 +154,39 @@ export default function BarbellCalculator() {
             ))}
             </div>
           </div>
+          <div className="additional-options-container">
+            <h3>More Options</h3>
+            <div className="option">
+              <input type="radio"></input>
+              <label>Micro plates?</label>
+            </div>
+            <div className="option">
+              <input type="radio"></input>
+              <label>Dip belt layout?</label>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   );
 }
 
-// add in micro plate option
+// add in micro plate option: 
+// KG: 0.125, 0.25, 0.5
+// LB: 0.25, 0.5, 1
+
 // add in weighted pull up/dip visual
 // add in custom barbell weights
 
-// change the keypad
+
+// Select Units
+// LB    KG
+
+// Weighted dip?
+// []
+
+// Select Barbell
+// [45 lb] [35 lb] [custom]
+
+// Micro plates
+// []
