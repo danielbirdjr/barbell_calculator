@@ -20,6 +20,9 @@ export default function BarbellCalculator() {
   const [weightUnit, setWeightUnit] = useState("LB");
   const [barbellWeight, setBarbellWeight] = useState(barbellOptions["LB"][0]);
   const [totalWeight, setTotalWeight] = useState("");
+  const [isMicroPlates, setIsMicroPlates] = useState(false);
+  const [isWeightedCollars, setIsWeightedCollars] = useState(false);
+  const [isDipBeltLayout, setIsDipBeltLayout] = useState(false);
   const [result, setResult] = useState(null);
 
   // Automatically calculate plates when inputs change
@@ -157,12 +160,16 @@ export default function BarbellCalculator() {
           <div className="additional-options-container">
             <h3>More Options</h3>
             <div className="option">
-              <input type="radio"></input>
+              <input type="checkbox" checked={isMicroPlates} onChange={() => setIsMicroPlates(!isMicroPlates)}></input>
               <label>Micro plates?</label>
             </div>
             <div className="option">
-              <input type="radio"></input>
+              <input type="checkbox" checked={isDipBeltLayout} onChange={() => setIsDipBeltLayout(!isDipBeltLayout)} disabled={isWeightedCollars}></input>
               <label>Dip belt layout?</label>
+            </div>
+            <div className="option">
+              <input type="checkbox" checked={isWeightedCollars} onChange={() => setIsWeightedCollars(!isWeightedCollars)} disabled={isDipBeltLayout}></input>
+              <label>2.5 KG collars?</label>
             </div>
           </div>
         </div>
@@ -178,15 +185,16 @@ export default function BarbellCalculator() {
 // add in weighted pull up/dip visual
 // add in custom barbell weights
 
+// functionality for dip belt layout
+// dont divide totalweight by 2
+// get rid of barbell
+// put heaviest plates in middle, lightest on outside
+// use bumper plates for 10lb and 25lb 
+// try to evenly divide it
+//  ex) totalweight = 132.5 lb: 2.5, 10, 45, 45, 25, 5
+      // 45's are always in middle, then 25lb and 10 on the outside of the 45's, then the 2.5 and 5's on the very outside
 
-// Select Units
-// LB    KG
+// if micro plates is false
+// desired valid weight can be 2.5lb/1.25KG increments
 
-// Weighted dip?
-// []
-
-// Select Barbell
-// [45 lb] [35 lb] [custom]
-
-// Micro plates
-// []
+// else

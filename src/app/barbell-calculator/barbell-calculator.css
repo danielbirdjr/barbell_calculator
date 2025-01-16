@@ -244,6 +244,8 @@ KG plates widths
     flex-direction: column;
     justify-content: center;
 }
+
+/* Plates */
 .plates-container {
     display: flex;
     gap: px;
@@ -262,6 +264,7 @@ KG plates widths
     border: rgb(55, 55, 55) 1px solid;
 }
 
+/* KG Plates */
 .plate.kg25 {
     height: 12.59rem;
     width: .82rem;
@@ -309,7 +312,7 @@ KG plates widths
 
 .plate.kg1-25 {
     height: 3.63rem;
-    width: .59rem;
+    width: .60rem;
     background-color: lightgray;
     color: black;
     font-size: 50%;
@@ -317,7 +320,7 @@ KG plates widths
     text-orientation: mixed;
 }
 
-
+/* LB Plates */
 .plate.lb45 {
     height: 12.59rem;
     width: 1.17rem;
@@ -357,12 +360,81 @@ KG plates widths
 
 .plate.lb2-5 {
     height: 3.63rem;
-    width: .59rem;
+    width: .60rem;
     font-size: 50%;
     background-color: rgb(22, 22, 22);
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
+
+/* Micro plates */
+.plate.kg0-5 {
+    height: 3.4rem;
+    width: .60rem;
+    background-color: lightgray;
+    color: black;
+    font-size: 50%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.plate.kg0-25 {
+    height: 3.2rem;
+    width: .60rem;
+    background-color: lightgray;
+    color: black;
+    font-size: 50%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.plate.kg0-125 {
+    height: 3rem;
+    width: .60rem;
+    background-color: lightgray;
+    color: black;
+    font-size: 50%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.plate.lb1 {
+    height: 3.4rem;
+    width: .60rem;
+    font-size: 50%;
+    background-color: red;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.plate.lb0-5 {
+    height: 3.2rem;
+    width: .60rem;
+    font-size: 50%;
+    background-color: rgb(255, 230, 45);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.plate.lb0-25 {
+    height: 3rem;
+    width: .60rem;
+    font-size: 50%;
+    background-color: rgb(59, 175, 24);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+/* Weighted collars */
+/* .plate.kg2-5 {
+    height: 4.29rem;
+    width: .61rem;
+    background-color: black;
+    font-size: 50%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+} */
+
 
 @media (max-width: 1024px) {
     .barbell-display {
