@@ -412,6 +412,7 @@ KG plates widths
     width: .60rem;
     font-size: 50%;
     background-color: rgb(255, 230, 45);
+    color: black;
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
@@ -426,14 +427,15 @@ KG plates widths
 }
 
 /* Weighted collars */
-/* .plate.kg2-5 {
-    height: 4.29rem;
-    width: .61rem;
-    background-color: black;
+.plate.weighted-collar {
+    height: 2rem;
+    width: 1.3rem;
+    background-color: rgb(141, 141, 141);
     font-size: 50%;
     writing-mode: vertical-rl;
     text-orientation: mixed;
-} */
+    border: 1px black solid;
+}
 
 
 @media (max-width: 1024px) {

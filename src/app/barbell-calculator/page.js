@@ -28,12 +28,12 @@ export default function BarbellCalculator() {
   // Automatically calculate plates when inputs change
   useEffect(() => {
       if (totalWeight && barbellWeight && weightUnit) {
-          const calculatedPlates = calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates);
+          const calculatedPlates = calculatePlates(totalWeight, barbellWeight, weightUnit, weightPlates, isMicroPlates, isDipBeltLayout, isWeightedCollars);
           setResult(calculatedPlates);
       } else {
           setResult(null); // Clear results when inputs are invalid or empty
       }
-  }, [totalWeight, barbellWeight, weightUnit]);
+  }, [totalWeight, barbellWeight, weightUnit, isMicroPlates, isDipBeltLayout, isWeightedCollars]);
 
 
   function handleUnitChange(unit) {
@@ -103,7 +103,7 @@ export default function BarbellCalculator() {
         <div className="barbell-display">
           <div className="bar-sleeve left-side">
             <div className="plates-container left-side">
-              {renderPlates(result, weightUnit)}
+              {renderPlates(result, weightUnit, isWeightedCollars)}
             </div>
           </div>
           <div className="collar left-side"></div>
@@ -111,7 +111,7 @@ export default function BarbellCalculator() {
           <div className="collar right-side"></div>
           <div className="bar-sleeve right-side">
             <div className="plates-container right-side">
-              {renderPlates(result, weightUnit)}
+              {renderPlates(result, weightUnit, isWeightedCollars)}
             </div>
           </div>
         </div>
