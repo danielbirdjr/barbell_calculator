@@ -6,7 +6,7 @@ import './rm-calculator.css';
 import { FiSettings } from "react-icons/fi"; 
 import calculate1RM from "../utils/calculate1RM.mjs";
 import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
@@ -143,8 +143,6 @@ export default function RepMaxCalculator() {
     const displayedWeight = weight || 0;
     const displayedReps = reps || 0;
 
-    // which calculator?
-    const [calculatorType, setCalculatorType] = useState("1 RM Calculator");
     const [targetReps, setTargetReps] = useState("");
     const [targetIntensity, setTargetIntensity] = useState(intensityUnit === "RPE" ? 10 : 0);
     const displayedTargetReps = targetReps || 0;
@@ -214,19 +212,47 @@ export default function RepMaxCalculator() {
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
     
     
-    // links to seperate calculators
+    // // links to seperate calculators
+    // function CalculatorTypeSelector({ setCalculatorType }) {
+    //     const searchParams = useSearchParams();
+    //     const calculatorParam = searchParams.get('calculator');
+      
+    //     useEffect(() => {
+    //       if (calculatorParam) {
+    //         setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+    //       }
+    //     }, [calculatorParam, setCalculatorType]);
+      
+    //     return null; // This component only handles the URL parameter logic
+    //   }
+
+    // which calculator?
+    const router = useRouter();
+    const [calculatorType, setCalculatorType] = useState("1 RM Calculator");
+
+    // Component to handle URL parameter logic
     function CalculatorTypeSelector({ setCalculatorType }) {
         const searchParams = useSearchParams();
         const calculatorParam = searchParams.get('calculator');
-      
+        
         useEffect(() => {
-          if (calculatorParam) {
-            setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
-          }
+            if (calculatorParam) {
+                setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+            }
         }, [calculatorParam, setCalculatorType]);
-      
-        return null; // This component only handles the URL parameter logic
-      }
+        
+        return null;
+    }
+
+    // Handler for dropdown changes
+    const handleCalculatorChange = (newValue) => {
+        setCalculatorType(newValue);
+        // Convert the calculator type to URL parameter format
+        const urlParam = newValue === "Weight for Reps Calculator" ? "Weight-for-Reps" : "1RM";
+        // Update the URL without full page reload
+        router.push(`/rm-calculator?calculator=${urlParam}`);
+    };
+
 
     return (
         <main>
@@ -235,11 +261,11 @@ export default function RepMaxCalculator() {
             </Suspense>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                        <select value={calculatorType} onChange={(e) => setCalculatorType(e.target.value)}>                        
-                            <option value="1 RM Calculator">1 RM Calculator</option>
-                            <option value="Weight for Reps Calculator">Weight for Reps Calculator</option>
-                        </select>
-                    </div>
+                    <select value={calculatorType} onChange={(e) => handleCalculatorChange(e.target.value)}>                        
+                        <option value="1 RM Calculator">1 RM Calculator</option>
+                        <option value="Weight for Reps Calculator">Weight for Reps Calculator</option>
+                    </select>
+                </div>
                 <div className="result-container">
                     {calculatorType === "1 RM Calculator" && (
                         <div className="result-container-calculator">
