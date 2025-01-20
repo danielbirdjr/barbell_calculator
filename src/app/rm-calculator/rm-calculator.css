@@ -7,22 +7,101 @@
 
 /* HEADER */
 .header-container {
-    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-self: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-.header-container select {
-    color: black;
-    font-size: 1.5rem;
-    font-weight: 700;
-    border: none;
-    padding: .5rem .375rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    text-align: center;
+/* DROPDOWN MENU ALTERNATIVE */
+.custom-select {
+    position: relative;
+    width: 22rem;
 }
+
+.custom-select-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #181818;
+    color: white;
+    border-radius: 5px;
+    height: 2.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0 2.5rem;
+}
+
+
+/* Chevron icon for the dropdown */
+.custom-select-header::after {
+    content: '▼';
+    position: absolute;
+    right: 1rem;
+    font-size: 0.8em;
+    color: white;
+}
+
+/* Hover state for the header */
+.custom-select-header:hover {
+    background-color: #222222;
+}
+
+/* Dropdown menu container */
+.custom-select-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+/* Show dropdown when parent is active */
+.custom-select.active .custom-select-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Individual option styling */
+.custom-select-options a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.375rem;
+    text-decoration: none;
+    color: #181818;
+    transition: all 0.15s ease;
+}
+
+/* Option hover state */
+.custom-select-options a:hover {
+    background: #f4f4f5;
+}
+
+/* Selected option state */
+.custom-select-options a.selected {
+    background: #efefef;
+    font-weight: 700;
+}
+
+/* Rotate chevron when dropdown is open */
+.custom-select.active .custom-select-header::after {
+    transform: rotate(180deg);
+}
+
+
+
 
 
 /* RESULT CONTAINER */
@@ -31,7 +110,6 @@
     flex-direction: column;
     align-items: center;
     gap: .75rem;
-    margin-bottom: 1rem;
 }
 
 .result-container-calculator {
@@ -92,7 +170,7 @@ input, select {
 }
 
 .data-container input {
-    color: black;
+    color: #181818;
     font-size: 1rem;
     padding: 0.375rem 0.75rem;
     font-weight: 500;
@@ -106,7 +184,7 @@ input, select {
 .weight-units-container .weight-unit {
     display: flex;
     align-items: center;
-    color: black;
+    color: #181818;
     font-size: 1rem;
     padding: 0.375rem 0.75rem;
     font-weight: 500;
@@ -136,7 +214,7 @@ input, select {
     border-radius: 5px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    color: black;
+    color: #181818;
 
     font-size: 1rem;
     height: 100%;
@@ -210,7 +288,7 @@ input, select {
 
 .intensity-chart table {
     border-collapse: collapse;
-    background-color: black;
+    background-color: #181818;
     color: white;
     width: 22rem;
 }
@@ -233,7 +311,7 @@ input, select {
     border: none;
     font-weight: 600;
     font-size: 1rem;
-    background-color: black;
+    background-color: #181818;
     color: white;
 }
 
@@ -275,7 +353,8 @@ input, select {
 }
 
 @media (max-width: 380px) {
-    .data-container {
+    .data-container, 
+    .header-container {
         width: 19rem;
     }
 
@@ -311,7 +390,7 @@ input, select {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(19, 19, 19);
+    background-color: #181818;
     color: white;
     border-radius: 5px;
 }

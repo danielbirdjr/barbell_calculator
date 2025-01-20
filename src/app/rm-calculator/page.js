@@ -6,7 +6,8 @@ import './rm-calculator.css';
 import { FiSettings } from "react-icons/fi"; 
 import calculate1RM from "../utils/calculate1RM.mjs";
 import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
@@ -212,59 +213,46 @@ export default function RepMaxCalculator() {
     const weightForReps = weight && reps && targetReps ? calculateWeightForReps(weight, weightUnit, reps, intensityUnit, intensity, isWeightedBodyweight, bodyweight, percentageOfBodyweight, targetReps, targetIntensity) : 0;
     
     
-    // // links to seperate calculators
-    // function CalculatorTypeSelector({ setCalculatorType }) {
-    //     const searchParams = useSearchParams();
-    //     const calculatorParam = searchParams.get('calculator');
-      
-    //     useEffect(() => {
-    //       if (calculatorParam) {
-    //         setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
-    //       }
-    //     }, [calculatorParam, setCalculatorType]);
-      
-    //     return null; // This component only handles the URL parameter logic
-    //   }
+    // which calc
+    const searchParams = useSearchParams();
+    const calculatorParam = searchParams.get('calculator');
+    const [calculatorType, setCalculatorType] = useState(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
 
-    // which calculator?
-    const router = useRouter();
-    const [calculatorType, setCalculatorType] = useState("1 RM Calculator");
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
-    // Component to handle URL parameter logic
-    function CalculatorTypeSelector({ setCalculatorType }) {
-        const searchParams = useSearchParams();
-        const calculatorParam = searchParams.get('calculator');
-        
-        useEffect(() => {
-            if (calculatorParam) {
-                setCalculatorType(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
             }
-        }, [calculatorParam, setCalculatorType]);
-        
-        return null;
-    }
+        }
 
-    // Handler for dropdown changes
-    const handleCalculatorChange = (newValue) => {
-        setCalculatorType(newValue);
-        // Convert the calculator type to URL parameter format
-        const urlParam = newValue === "Weight for Reps Calculator" ? "Weight-for-Reps" : "1RM";
-        // Update the URL without full page reload
-        router.push(`/rm-calculator?calculator=${urlParam}`);
-    };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
+    // Keep calculatorType in sync with URL
+    useEffect(() => {
+        if (calculatorParam) {
+            setCalculatorType(
+                calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator'
+            );
+        }
+    }, [calculatorParam]);
 
     return (
         <main>
-            <Suspense fallback={<div>Loading...</div>}>
-                <CalculatorTypeSelector setCalculatorType={setCalculatorType} />
-            </Suspense>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                    <select value={calculatorType} onChange={(e) => handleCalculatorChange(e.target.value)}>                        
-                        <option value="1 RM Calculator">1 RM Calculator</option>
-                        <option value="Weight for Reps Calculator">Weight for Reps Calculator</option>
-                    </select>
+                    <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
+                        <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
+                        <div className="custom-select-options">
+                            <Link href="/rm-calculator?calculator=1RM" onClick={() => setIsOpen(false)} className={calculatorType === "1 RM Calculator" ? "selected" : ""} >1 RM Calculator</Link>
+                            <Link href="/rm-calculator?calculator=Weight-for-Reps" onClick={() => setIsOpen(false)} className={calculatorType === "Weight for Reps Calculator" ? "selected" : ""} >Weight for Reps Calculator</Link>
+                        </div>
+                    </div>
                 </div>
                 <div className="result-container">
                     {calculatorType === "1 RM Calculator" && (
