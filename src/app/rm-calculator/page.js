@@ -214,39 +214,45 @@ export default function RepMaxCalculator() {
     
     
     // which calc
-    const searchParams = useSearchParams();
-    const calculatorParam = searchParams.get('calculator');
-    const [calculatorType, setCalculatorType] = useState(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+    function CalculatorTypeSelector({ onTypeChange }) {
+        const searchParams = useSearchParams();
+        const calculatorParam = searchParams.get('calculator');
+        const [isOpen, setIsOpen] = useState(false);
+        const dropdownRef = useRef(null);
+        const [calculatorType, setCalculatorType] = useState(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
 
-    const [isOpen, setIsOpen] = useState(false);
-    const dropdownRef = useRef(null);
-
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
+        // Close dropdown when clicking outside
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                    setIsOpen(false);
+                }
             }
-        }
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => document.removeEventListener('mousedown', handleClickOutside);
+        }, []);
 
-    // Keep calculatorType in sync with URL
-    useEffect(() => {
-        if (calculatorParam) {
-            setCalculatorType(
-                calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator'
-            );
-        }
-    }, [calculatorParam]);
+        // Keep calculatorType in sync with URL
+        useEffect(() => {
+            if (calculatorParam) {
+                setCalculatorType(
+                    calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator'
+                );
+            }
+        }, [calculatorParam]);
+    }
+
+    
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <main>
                 <div className="rm-calculation-container">
                     <div className="header-container">
+                        <Suspense fallback={<div>Loading calculator...</div>}>
+                            <CalculatorTypeSelector onTypeChange={setCalculatorType} />
+                        </Suspense>
                         <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
                             <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
                             <div className="custom-select-options">
