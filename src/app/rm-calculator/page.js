@@ -244,6 +244,7 @@ export default function RepMaxCalculator() {
 
     return (
         <main>
+            <Suspense fallback={<div>Loading...</div>}></Suspense>
             <div className="rm-calculation-container">
                 <div className="header-container">
                     <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
