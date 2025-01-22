@@ -246,183 +246,181 @@ export default function RepMaxCalculator() {
     
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <main>
-                <div className="rm-calculation-container">
-                    <div className="header-container">
-                        <Suspense fallback={<div>Loading calculator...</div>}>
-                            <CalculatorTypeSelector onTypeChange={setCalculatorType} />
-                        </Suspense>
-                        <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
-                            <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
-                            <div className="custom-select-options">
-                                <Link href="/rm-calculator?calculator=1RM" onClick={() => setIsOpen(false)} className={calculatorType === "1 RM Calculator" ? "selected" : ""} >1 RM Calculator</Link>
-                                <Link href="/rm-calculator?calculator=Weight-for-Reps" onClick={() => setIsOpen(false)} className={calculatorType === "Weight for Reps Calculator" ? "selected" : ""} >Weight for Reps Calculator</Link>
-                            </div>
+        <main>
+            <div className="rm-calculation-container">
+                <div className="header-container">
+                    <Suspense fallback={<div>Loading calculator...</div>}>
+                        <CalculatorTypeSelector onTypeChange={setCalculatorType} />
+                    </Suspense>
+                    <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
+                        <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
+                        <div className="custom-select-options">
+                            <Link href="/rm-calculator?calculator=1RM" onClick={() => setIsOpen(false)} className={calculatorType === "1 RM Calculator" ? "selected" : ""} >1 RM Calculator</Link>
+                            <Link href="/rm-calculator?calculator=Weight-for-Reps" onClick={() => setIsOpen(false)} className={calculatorType === "Weight for Reps Calculator" ? "selected" : ""} >Weight for Reps Calculator</Link>
                         </div>
                     </div>
-                    <div className="result-container">
-                        {calculatorType === "1 RM Calculator" && (
-                            <div className="result-container-calculator">
-                                <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
-                                <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
-                            </div>
-                        )}
+                </div>
+                <div className="result-container">
+                    {calculatorType === "1 RM Calculator" && (
+                        <div className="result-container-calculator">
+                            <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                            <h1>{oneRepMax} {weightUnit.toLowerCase()}</h1>
+                        </div>
+                    )}
 
+                    {calculatorType === "Weight for Reps Calculator" && (
+                        <div className="result-container-calculator">
+                            <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
+                            <h1>{weightForReps} {weightUnit.toLowerCase()}</h1>
+                            <div>for {displayedTargetReps} reps @ {intensityUnit} {targetIntensity}</div>
+                        </div>
+                    )}
+                </div>
+                <div className="data-container">
+                    <div className="weight-container">
                         {calculatorType === "Weight for Reps Calculator" && (
-                            <div className="result-container-calculator">
-                                <div>{displayedWeight} {weightUnit.toLowerCase()} x {displayedReps} reps @ {intensityUnit} {intensity} equals</div>
-                                <h1>{weightForReps} {weightUnit.toLowerCase()}</h1>
-                                <div>for {displayedTargetReps} reps @ {intensityUnit} {targetIntensity}</div>
+                            <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
+                                <label>Targets</label>
+                                <div className="reps-input-container">
+                                    <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" ref={targetRepsInputRef} onKeyDown={(e) => handleEnterKey(e, targetIntensityInputRef)} />
+                                </div>
+                                <div className="intensity-container">
+                                    <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
+                                        <option value="RPE">RPE</option>
+                                        <option value="RIR">RIR</option>
+                                    </select>
+                                    <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} ref={targetIntensityInputRef} onKeyDown={(e) => handleEnterKey(e, weightInputRef)} />
+                                </div>
+                                <span></span>
+                                <label className="known-rm-label">Known RM</label>
                             </div>
                         )}
+                        <input className="weight-input inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight" ref={weightInputRef} onKeyDown={(e) => handleEnterKey(e, repsInputRef)} />
+                        <div className="weight-units-container">
+                            <div className="weight-unit left-side-weight-unit">
+                                <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
+                                <label>LB</label>
+                            </div>
+                            <div className="weight-unit right-side-weight-unit">
+                                <input type="radio" checked={weightUnit === "KG"}  onChange={() => {handleUnitChange("KG")}}></input>
+                                <label>KG</label>
+                            </div>
+                        </div>
                     </div>
-                    <div className="data-container">
-                        <div className="weight-container">
-                            {calculatorType === "Weight for Reps Calculator" && (
-                                <div id="weight-for-reps-calculator" className="reps-and-intensity-container">
-                                    <label>Targets</label>
-                                    <div className="reps-input-container">
-                                        <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetReps} onChange={(e) => handleTargetRepChange(e.target.value)} placeholder="Reps" ref={targetRepsInputRef} onKeyDown={(e) => handleEnterKey(e, targetIntensityInputRef)} />
-                                    </div>
-                                    <div className="intensity-container">
-                                        <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
-                                            <option value="RPE">RPE</option>
-                                            <option value="RIR">RIR</option>
-                                        </select>
-                                        <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={targetIntensity} onChange={(e) => handleTargetIntensityValueChange(e.target.value)} onBlur={handleTargetIntensityBlur} ref={targetIntensityInputRef} onKeyDown={(e) => handleEnterKey(e, weightInputRef)} />
-                                    </div>
-                                    <span></span>
-                                    <label className="known-rm-label">Known RM</label>
-                                </div>
+                    <div className="reps-and-intensity-container">
+                        <div className="reps-input-container">
+                            <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" ref={repsInputRef} onKeyDown={(e) => handleEnterKey(e, intensityInputRef)} />
+                        </div>
+                        <div className="intensity-container">
+                            <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
+                                <option value="RPE">RPE</option>
+                                <option value="RIR">RIR</option>
+                            </select>
+                            <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} ref={intensityInputRef} />
+                        </div>
+                    </div>
+                    <div className="weighted-pull-up-container">
+                        <div className="weighted-pull-up-header-container">
+                            <div className="weighted-pull-up-checkbox-container">
+                                <input
+                                    type="checkbox"
+                                    checked={isWeightedBodyweight}
+                                    onChange={(e) => handleCheckboxChange(e.target.checked)}
+                                />
+                                <label>Weighted pull up/dip?</label>
+                            </div>
+                            {isWeightedBodyweight && (
+                                <span
+                                    className="adv-settings-toggle"
+                                    onClick={() => setIsAdvVisible(!isAdvVisible)}
+                                >
+                                    Adv <FiSettings />
+                                </span>
                             )}
-                            <input className="weight-input inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="Weight" ref={weightInputRef} onKeyDown={(e) => handleEnterKey(e, repsInputRef)} />
-                            <div className="weight-units-container">
-                                <div className="weight-unit left-side-weight-unit">
-                                    <input type="radio" checked={weightUnit === "LB"} onChange={() => {handleUnitChange("LB")}}></input>
-                                    <label>LB</label>
-                                </div>
-                                <div className="weight-unit right-side-weight-unit">
-                                    <input type="radio" checked={weightUnit === "KG"}  onChange={() => {handleUnitChange("KG")}}></input>
-                                    <label>KG</label>
-                                </div>
-                            </div>
                         </div>
-                        <div className="reps-and-intensity-container">
-                            <div className="reps-input-container">
-                                <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={reps} onChange={(e) => handleRepChange(e.target.value)} placeholder="Reps" ref={repsInputRef} onKeyDown={(e) => handleEnterKey(e, intensityInputRef)} />
-                            </div>
-                            <div className="intensity-container">
-                                <select value={intensityUnit} onChange={(e) => handleIntensityChange(e.target.value)}>
-                                    <option value="RPE">RPE</option>
-                                    <option value="RIR">RIR</option>
-                                </select>
-                                <input className="inputValueClear" type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" value={intensity} onChange={(e) => handleIntensityValueChange(e.target.value)} onBlur={handleIntensityBlur} ref={intensityInputRef} />
-                            </div>
-                        </div>
-                        <div className="weighted-pull-up-container">
-                            <div className="weighted-pull-up-header-container">
-                                <div className="weighted-pull-up-checkbox-container">
+
+                        {isWeightedBodyweight && (
+                            <div className="bodyweight-and-percentage-container">
+                                <div className="bodyweight-container">
                                     <input
-                                        type="checkbox"
-                                        checked={isWeightedBodyweight}
-                                        onChange={(e) => handleCheckboxChange(e.target.checked)}
+                                        className="inputValueClear"
+                                        type="number"
+                                        value={bodyweight}
+                                        onChange={(e) => setBodyweight(e.target.value)}
+                                        placeholder="Bodyweight"
                                     />
-                                    <label>Weighted pull up/dip?</label>
                                 </div>
-                                {isWeightedBodyweight && (
-                                    <span
-                                        className="adv-settings-toggle"
-                                        onClick={() => setIsAdvVisible(!isAdvVisible)}
-                                    >
-                                        Adv <FiSettings />
-                                    </span>
+                                {isAdvVisible && (
+                                    <div className="percentage-container">
+                                        <input className="inputValueClear" type="number" value={percentageOfBodyweight} onChange={(e) => handlePercentageOfBodyweightChange(e.target.value)} />
+                                        <span>%</span>
+                                    </div>
                                 )}
                             </div>
+                        )}
 
-                            {isWeightedBodyweight && (
-                                <div className="bodyweight-and-percentage-container">
-                                    <div className="bodyweight-container">
-                                        <input
-                                            className="inputValueClear"
-                                            type="number"
-                                            value={bodyweight}
-                                            onChange={(e) => setBodyweight(e.target.value)}
-                                            placeholder="Bodyweight"
-                                        />
-                                    </div>
-                                    {isAdvVisible && (
-                                        <div className="percentage-container">
-                                            <input className="inputValueClear" type="number" value={percentageOfBodyweight} onChange={(e) => handlePercentageOfBodyweightChange(e.target.value)} />
-                                            <span>%</span>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-
-                            {isWeightedBodyweight && isAdvVisible && (
-                                <ul className="advanced-settings-list">
-                                    <li>Adjust % of your BW to include in total weight.</li>
-                                    <li>Ex: Weighted Push Ups: count 60% of your BW since you aren&apos;t lifting weight of your legs.</li>
-                                </ul>
-                            )}
-                        </div>
+                        {isWeightedBodyweight && isAdvVisible && (
+                            <ul className="advanced-settings-list">
+                                <li>Adjust % of your BW to include in total weight.</li>
+                                <li>Ex: Weighted Push Ups: count 60% of your BW since you aren&apos;t lifting weight of your legs.</li>
+                            </ul>
+                        )}
                     </div>
                 </div>
-                <div className="intensity-chart">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><select value={intensityChartUnit} onChange={(e) => setIntensityChartUnit(e.target.value)}>
-                                    <option value="RPE">RPE</option>
-                                    <option value="RIR">RIR</option>
-                                </select></th>
-                                <th>Definition</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {adjustedIntensityChartValues.map((row, index) => ( <tr key={index}>
-                                <td className="intensity-chart-intensity-column">{row.adjustedIntensityChartValues}</td>
-                                <td>{row.definition}</td>
-                            </tr>))}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="info-bottom-section">
-                    {calculatorType === "1 RM Calculator" && (
-                        <div className="calculator-info-bottom-section">
-                            <h2>The 1 RM Calculator</h2>
-                            <p>Estimate your 1 rep max with ease.</p>
-                            <p>For best accuracy, use set with lower reps done close to failure.</p>
-                            <h3>How to Use</h3>
-                            <ul>
-                                <li>Enter the weight used.</li>
-                                <li>Enter the number of reps (between 1-12).</li>
-                                <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
-                            </ul>
-                        </div>
-                    )}
-                    {calculatorType === "Weight for Reps Calculator" && (
-                        <div className="calculator-info-bottom-section">
-                            <h2>The Weight for Reps Calculator</h2>
-                            <p>Find the weight you can lift for a given number of reps.</p>
-                            <p><strong>Ex:</strong> Find 5 rep max @ RPE 9 using any known rep max.</p>
-                            <h3>How to Use</h3>
-                            <h4>Targets</h4>
-                            <ul>
-                                <li>Enter your target number of reps.</li>
-                                <li>Enter your target RPE (4-10) or RIR (0-6).</li>
-                            </ul>
-                            <h4 className="known-rep-max">Known Rep Max</h4>
-                            <ul>
-                                <li>Enter the weight used.</li>
-                                <li>Enter the number of reps (between 1-12).</li>
-                                <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
-                            </ul>
-                        </div>
-                    )}
-                </div>
-            </main>
-        </Suspense>
+            </div>
+            <div className="intensity-chart">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><select value={intensityChartUnit} onChange={(e) => setIntensityChartUnit(e.target.value)}>
+                                <option value="RPE">RPE</option>
+                                <option value="RIR">RIR</option>
+                            </select></th>
+                            <th>Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {adjustedIntensityChartValues.map((row, index) => ( <tr key={index}>
+                            <td className="intensity-chart-intensity-column">{row.adjustedIntensityChartValues}</td>
+                            <td>{row.definition}</td>
+                        </tr>))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="info-bottom-section">
+                {calculatorType === "1 RM Calculator" && (
+                    <div className="calculator-info-bottom-section">
+                        <h2>The 1 RM Calculator</h2>
+                        <p>Estimate your 1 rep max with ease.</p>
+                        <p>For best accuracy, use set with lower reps done close to failure.</p>
+                        <h3>How to Use</h3>
+                        <ul>
+                            <li>Enter the weight used.</li>
+                            <li>Enter the number of reps (between 1-12).</li>
+                            <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
+                        </ul>
+                    </div>
+                )}
+                {calculatorType === "Weight for Reps Calculator" && (
+                    <div className="calculator-info-bottom-section">
+                        <h2>The Weight for Reps Calculator</h2>
+                        <p>Find the weight you can lift for a given number of reps.</p>
+                        <p><strong>Ex:</strong> Find 5 rep max @ RPE 9 using any known rep max.</p>
+                        <h3>How to Use</h3>
+                        <h4>Targets</h4>
+                        <ul>
+                            <li>Enter your target number of reps.</li>
+                            <li>Enter your target RPE (4-10) or RIR (0-6).</li>
+                        </ul>
+                        <h4 className="known-rep-max">Known Rep Max</h4>
+                        <ul>
+                            <li>Enter the weight used.</li>
+                            <li>Enter the number of reps (between 1-12).</li>
+                            <li>Enter the RPE (4-10) or RIR (0-6) in 0.5 increments.</li>
+                        </ul>
+                    </div>
+                )}
+            </div>
+        </main>
     );
 }
