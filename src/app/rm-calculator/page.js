@@ -247,16 +247,16 @@ export default function RepMaxCalculator() {
             <div className="rm-calculation-container">
                 <div className="header-container">
                     <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
-                        
+
                         {/* Trying to fix vercel deployment error */}
                         <Suspense fallback={<div>Loading...</div>}>
                             <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
+                            <div className="custom-select-options">
+                                <Link href="/rm-calculator?calculator=1RM" onClick={() => setIsOpen(false)} className={calculatorType === "1 RM Calculator" ? "selected" : ""} >1 RM Calculator</Link>
+                                <Link href="/rm-calculator?calculator=Weight-for-Reps" onClick={() => setIsOpen(false)} className={calculatorType === "Weight for Reps Calculator" ? "selected" : ""} >Weight for Reps Calculator</Link>
+                            </div>
                         </Suspense>
                         
-                        <div className="custom-select-options">
-                            <Link href="/rm-calculator?calculator=1RM" onClick={() => setIsOpen(false)} className={calculatorType === "1 RM Calculator" ? "selected" : ""} >1 RM Calculator</Link>
-                            <Link href="/rm-calculator?calculator=Weight-for-Reps" onClick={() => setIsOpen(false)} className={calculatorType === "Weight for Reps Calculator" ? "selected" : ""} >Weight for Reps Calculator</Link>
-                        </div>
                     </div>
                 </div>
                 <div className="result-container">
