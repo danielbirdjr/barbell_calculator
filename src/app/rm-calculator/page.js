@@ -9,7 +9,7 @@ import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function RepMaxCalculator() {
+function CalculatorContent() {
     const [weight, setWeight] = useState("");
     const [reps, setReps] = useState("");
     const [weightUnit, setWeightUnit] = useState("LB");
@@ -416,5 +416,14 @@ export default function RepMaxCalculator() {
                 )}
             </div>
         </main>
+    );
+}
+
+
+export default function RepMaxCalculator() {
+    return (
+        <Suspense fallback={<div>Loading calculator...</div>}>
+            <CalculatorContent />
+        </Suspense>
     );
 }
