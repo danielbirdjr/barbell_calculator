@@ -9,7 +9,7 @@ import calculateWeightForReps from "../utils/calculateWeightForReps.mjs";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-function CalculatorContent() {
+export default function RepMaxCalculator() {
     const [weight, setWeight] = useState("");
     const [reps, setReps] = useState("");
     const [weightUnit, setWeightUnit] = useState("LB");
@@ -214,44 +214,38 @@ function CalculatorContent() {
     
     
     // which calc
-    function CalculatorTypeSelector({ onTypeChange }) {
-        const searchParams = useSearchParams();
-        const calculatorParam = searchParams.get('calculator');
-        const [isOpen, setIsOpen] = useState(false);
-        const dropdownRef = useRef(null);
-        const [calculatorType, setCalculatorType] = useState(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
+    const searchParams = useSearchParams();
+    const calculatorParam = searchParams.get('calculator');
+    const [calculatorType, setCalculatorType] = useState(calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator');
 
-        // Close dropdown when clicking outside
-        useEffect(() => {
-            function handleClickOutside(event) {
-                if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                    setIsOpen(false);
-                }
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
             }
+        }
 
-            document.addEventListener('mousedown', handleClickOutside);
-            return () => document.removeEventListener('mousedown', handleClickOutside);
-        }, []);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
-        // Keep calculatorType in sync with URL
-        useEffect(() => {
-            if (calculatorParam) {
-                setCalculatorType(
-                    calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator'
-                );
-            }
-        }, [calculatorParam]);
-    }
-
-    
+    // Keep calculatorType in sync with URL
+    useEffect(() => {
+        if (calculatorParam) {
+            setCalculatorType(
+                calculatorParam === 'Weight-for-Reps' ? 'Weight for Reps Calculator' : '1 RM Calculator'
+            );
+        }
+    }, [calculatorParam]);
 
     return (
         <main>
             <div className="rm-calculation-container">
                 <div className="header-container">
-                    <Suspense fallback={<div>Loading calculator...</div>}>
-                        <CalculatorTypeSelector onTypeChange={setCalculatorType} />
-                    </Suspense>
                     <div ref={dropdownRef} className={`custom-select ${isOpen ? 'active' : ''}`} >
                         <div className="custom-select-header" onClick={() => setIsOpen(!isOpen)} > {calculatorType} </div>
                         <div className="custom-select-options">
@@ -422,14 +416,5 @@ function CalculatorContent() {
                 )}
             </div>
         </main>
-    );
-}
-
-
-export default function RepMaxCalculator() {
-    return (
-        <Suspense fallback={<div>Loading calculator...</div>}>
-            <CalculatorContent />
-        </Suspense>
     );
 }
