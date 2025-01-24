@@ -138,9 +138,9 @@ main {
 
 .barbell-weight-options button, 
 .barbell-weight-options input {
-    width: 3.8rem;
-    padding: .5rem .375rem;
-    font-size: 1rem;
+    width: 3.9rem;
+    padding: .5rem .125rem;
+    font-size: .875rem;
     font-weight: 500;
     background-color: rgb(175, 175, 175);
     color: white;
