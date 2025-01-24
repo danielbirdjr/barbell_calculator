@@ -152,9 +152,10 @@ export default function BarbellCalculator() {
           <div className="barbell-weight-container">
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
-            {barbellOptions[weightUnit].map((weight) => (
-              <button key={weight} onClick={() => {setBarbellWeight(weight); resetPlatesDisplay(); }}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
-            ))}
+              {barbellOptions[weightUnit].map((weight) => (
+                <button key={weight} onClick={() => {setBarbellWeight(weight); resetPlatesDisplay(); }}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
+              ))}
+              <input placeholder="Other"></input>
             </div>
           </div>
           <div className="additional-options-container">

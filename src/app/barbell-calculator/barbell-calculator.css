@@ -129,22 +129,37 @@ main {
     margin-bottom: .75rem;
 }
 
-.barbell-weight-options button {
+.barbell-weight-options {
+    width: 17rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.barbell-weight-options button, 
+.barbell-weight-options input {
+    width: 4rem;
+    padding: .5rem .25rem;
     font-size: 1rem;
     font-weight: 500;
-    padding: .5rem .75rem;
-    margin-left: .5rem;
-    margin-right: .5rem;
     background-color: rgb(175, 175, 175);
     color: white;
     border: 2px solid rgb(175, 175, 175);
     border-radius: .25rem;
+    text-align: center;
 }
 
 .barbell-weight-options button.selected {
     background-color: rgb(110, 110, 110);
     border: 2px solid rgb(70, 70, 70);
 }
+
+.barbell-weight-options input.selected {
+    background-color: rgb(110, 110, 110);
+    border: 2px solid rgb(70, 70, 70);
+}
+
+
 
 .calculate-button-container button {
     margin-top: 1rem;
