@@ -149,15 +149,13 @@ main {
     text-align: center;
 }
 
-.barbell-weight-options button.selected {
-    background-color: rgb(110, 110, 110);
-    border: 2px solid rgb(70, 70, 70);
-}
-
+.barbell-weight-options button.selected, 
 .barbell-weight-options input.selected {
     background-color: rgb(110, 110, 110);
     border: 2px solid rgb(70, 70, 70);
 }
+
+
 
 
 
