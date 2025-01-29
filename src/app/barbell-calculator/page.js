@@ -125,9 +125,7 @@ export default function BarbellCalculator() {
 
   const handleCustomBarbellWeightFocus = () => {
     setIsCustomBarbellWeightSelected(true);
-    setBarbellWeight(null); // Deselect other buttons
   };
-
 
 
   return (
@@ -194,16 +192,17 @@ export default function BarbellCalculator() {
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
               {barbellOptions[weightUnit].map((weight) => (
-                <button key={weight} 
+                <button 
+                  key={weight} 
                   onClick={() => {setBarbellWeight(weight);
-                  setCustomBarbellWeight("");
                   setIsCustomBarbellWeightSelected(false);
                   resetPlatesDisplay(); }}  
                   className={barbellWeight === weight ? "selected" : ""}>
                   {weight} {weightUnit}
                 </button>
               ))}
-              <input type="text" placeholder="Other" 
+              <input type="text" inputMode="decimal" pattern="[0-9]*\.?[0-9]*" 
+                placeholder="Other" 
                 value={customBarbellWeight} 
                 className={isCustomBarbellWeightSelected ? "selected" : ""}  
                 onFocus={handleCustomBarbellWeightFocus} 
