@@ -155,8 +155,13 @@ main {
     border: 2px solid rgb(70, 70, 70);
 }
 
+.barbell-weight-options input::placeholder {
+    color: white;
+}
 
-
+.barbell-weight-options input.selected::placeholder {
+    color: rgb(220, 220, 220);
+}
 
 
 .calculate-button-container button {

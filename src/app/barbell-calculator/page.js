@@ -99,24 +99,28 @@ export default function BarbellCalculator() {
   const handleCustomBarbellWeightBlur = () => {
       const numericValue = parseFloat(customBarbellWeight);
 
-      if (weightUnit === "LB") {
-        if (!isNaN(numericValue) && numericValue % 0.5 === 0) {
-          setCustomBarbellWeight(numericValue.toString()); // Update valid value
-        } else {
-          let roundedValue;
-          roundedValue = Math.round(numericValue / 0.5) * 0.5;
-          setCustomBarbellWeight(roundedValue.toString());
+      if (!isNaN(numericValue)) {
+        let roundedValue;
+
+        // Round the value based on the unit
+        if (weightUnit === "LB") {
+            roundedValue = Math.round(numericValue / 0.5) * 0.5;
+        } else if (weightUnit === "KG") {
+            roundedValue = Math.round(numericValue / 0.25) * 0.25;
         }
-      } else if (weightUnit === "KG") {
-        if (!isNaN(numericValue) && numericValue % 0.25 === 0) {
-          setCustomBarbellWeight(numericValue.toString()); // Update valid value
-        } else {
-          let roundedValue;
-          roundedValue = Math.round(numericValue / 0.25) * 0.25;
-          setCustomBarbellWeight(roundedValue.toString());
+
+        // Update custom barbell weight and set as the selected barbell weight
+        setCustomBarbellWeight(roundedValue.toString());
+        if (isCustomBarbellWeightSelected) {
+            setBarbellWeight(roundedValue); // Update the barbell weight if this input is selected
         }
-      }
-      setIsCustomBarbellWeightSelected(false);
+    } else {
+        // Reset to an empty state if the input is invalid
+        setCustomBarbellWeight("");
+        if (isCustomBarbellWeightSelected) {
+            setBarbellWeight(null);
+        }
+    }
   };
 
   const handleCustomBarbellWeightFocus = () => {
@@ -190,21 +194,22 @@ export default function BarbellCalculator() {
             <h3>Select Barbell</h3>
             <div className="barbell-weight-options">
               {barbellOptions[weightUnit].map((weight) => (
-                <button key={weight} onClick={() => {setBarbellWeight(weight);
-
+                <button key={weight} 
+                  onClick={() => {setBarbellWeight(weight);
                   setCustomBarbellWeight("");
                   setIsCustomBarbellWeightSelected(false);
-                  
-                  resetPlatesDisplay(); }}  className={barbellWeight === weight ? "selected" : ""}>{weight} {weightUnit}</button>
+                  resetPlatesDisplay(); }}  
+                  className={barbellWeight === weight ? "selected" : ""}>
+                  {weight} {weightUnit}
+                </button>
               ))}
-              <input type="text" placeholder="Other" value={customBarbellWeight}
-              
-
-              className={isCustomBarbellWeightSelected ? "selected" : ""} 
-              
-                onFocus={handleCustomBarbellWeightFocus}
-
-              onChange={(e) => handleCustomBarbellWeightInput(e.target.value)} onBlur={handleCustomBarbellWeightBlur}></input>
+              <input type="text" placeholder="Other" 
+                value={customBarbellWeight} 
+                className={isCustomBarbellWeightSelected ? "selected" : ""}  
+                onFocus={handleCustomBarbellWeightFocus} 
+                onChange={(e) => handleCustomBarbellWeightInput(e.target.value)} 
+                onBlur={handleCustomBarbellWeightBlur}>
+              </input>
             </div>
           </div>
           <div className="additional-options-container">
@@ -224,7 +229,6 @@ export default function BarbellCalculator() {
           </div>
         </div>
       </div>
-      {/* <p>Barbell weight: {barbellWeight.toString()}</p> */}
     </main>
   );
 }
