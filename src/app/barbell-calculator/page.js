@@ -218,11 +218,11 @@ export default function BarbellCalculator() {
               <label>Micro plates?</label>
             </div>
             <div className="option">
-              <input type="checkbox" checked={isDipBeltLayout} onChange={() => setIsDipBeltLayout(!isDipBeltLayout)} disabled={isWeightedCollars}></input>
+              <input type="checkbox" checked={isDipBeltLayout} onChange={() => { setIsDipBeltLayout(!isDipBeltLayout); setIsWeightedCollars(false); }}></input>
               <label>Dip belt layout?</label>
             </div>
             <div className="option">
-              <input type="checkbox" checked={isWeightedCollars} onChange={() => setIsWeightedCollars(!isWeightedCollars)} disabled={isDipBeltLayout}></input>
+              <input type="checkbox" checked={isWeightedCollars} onChange={() => { setIsWeightedCollars(!isWeightedCollars); setIsDipBeltLayout(false); }}></input>
               <label>2.5 KG collars?</label>
             </div>
           </div>
@@ -234,7 +234,6 @@ export default function BarbellCalculator() {
 
 
 // add in weighted pull up/dip visual
-// add in custom barbell weights
 
 // functionality for dip belt layout
 // dont divide totalweight by 2
@@ -250,38 +249,5 @@ export default function BarbellCalculator() {
 
 // else
 
-
-
-// const [customBarbellWeight, setCustomBarbellWeight] = useState();
-
-// const handleCustomBarbellWeightInput = (value) => {
-//   if (value === "" || /^-?\d*\.?\d*$/.test(value)) {
-//       setCustomBarbellWeight(value); // Allow temporary invalid input
-//   }
-// };
-
-// const handleCustomBarbellWeightBlur = () => {
-//     const numericValue = parseFloat(customBarbellWeight);
-
-//     if (weightUnit === "LB") {
-//         if (!isNaN(numericValue) && numericValue % .5 === 0) {
-//             setCustomBarbellWeight(numericValue);
-//         } 
-//         // else {
-//         //     // Round to the nearest valid value within range
-//         //     const clampedValue = Math.min(10, Math.max(4, Math.round(numericValue * 2) / 2));
-//         //     setIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
-//         // }
-//     } else if (weightUnit === "KG") {
-//         if (!isNaN(numericValue) && numericValue % .25 === 0) {
-//             setCustomBarbellWeight(numericValue);
-//         } 
-//         // else {
-//         //     // Round to the nearest valid value within range
-//         //     const clampedValue = Math.min(6, Math.max(0, Math.round(numericValue * 2) / 2));
-//         //     setIntensity(clampedValue % 1 === 0 ? clampedValue.toString() : clampedValue.toFixed(1));
-//         // }
-//     }
-// };
-
-// <input type="text" placeholder="Other" value={customBarbellWeight} onChange={(e) => handleCustomBarbellWeightInput(e.target.value)} onBlur={handleCustomBarbellWeightBlur}></input>
+// add in custom barbell weights
+// make it so as soon as the input box is clicked or tapped on, it should be selected
