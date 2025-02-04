@@ -55,6 +55,9 @@ export default function BarbellCalculator() {
 
   function handleUnitChange(unit) {
     setWeightUnit(unit);
+
+    setIsCustomBarbellWeightSelected(false);
+    
     setBarbellWeight(barbellOptions[unit][0]); // Reset/default to first opt of unit
   }
 
@@ -340,3 +343,4 @@ export default function BarbellCalculator() {
 // 2. say i have the customBarbellWeight in LB selected and switch to KG units, it then selects both the deafult KG and the customBarbellWeight
 // 3. if i refresh page and then enter total weight and then click on customBarbellWeight and then click off of it without entering unit, it and the rendering plates remain blank. instead it should then default back to the previously selected barbellWeight option
 // 4. if i had value in customBarbellWeight input, and then click back in, it unrenders plates. it should hold the previous values rendered plates until the user starts typing
+// 5. whenever i have a value in the custom barbell weight but have a different barbell weight selected, and i go to select the custom barbell weight option, whenever i click or tap on it, it first unrenders the plates and it is not until i click out of the input box that it re renders the plates if i didnt want to make changes to the custom barbell weight
