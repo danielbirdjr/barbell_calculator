@@ -234,6 +234,12 @@ KG plates widths
     width: 62rem;
 }
 
+.weighted-dip-barbell-display {
+    display: flex;
+    align-items: center;
+    height: 13.59rem;
+}
+
 .barbell-display .collar, 
 .barbell-display .bar, 
 .barbell-display .bar-sleeve {
@@ -455,11 +461,14 @@ KG plates widths
     border: 1px black solid;
 }
 
-
 @media (max-width: 1024px) {
     .barbell-display {
         height: 10rem;
         width: 46rem;
+    }
+
+    .weighted-dip-barbell-display {
+        height: 10rem;
     }
     
     .barbell-display .collar {
@@ -764,6 +773,10 @@ KG plates widths
         width: 13.5rem;
         display: flex;
         justify-content: center;
+    }
+
+    .weighted-dip-barbell-display {
+        height: 13.5rem;
     }
 
     .bar-sleeve.left-side {
