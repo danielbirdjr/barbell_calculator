@@ -393,5 +393,4 @@ export default function BarbellCalculator() {
 
 // some of the input boxes dont act how theyre supposed to
 // the dropdown menu on the navbar for the RM calculators, the hitbox is only the text instead of the whole div
-// keypad on bodyweight entery
 
