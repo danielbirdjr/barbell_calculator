@@ -55,10 +55,13 @@ export default function BarbellCalculator() {
 
     function handleUnitChange(unit) {
         setWeightUnit(unit);
-
-        setIsCustomBarbellWeightSelected(false);
-
-        setBarbellWeight(barbellOptions[unit][0]); // Reset/default to first opt of unit
+        if (isCustomBarbellWeightSelected) {
+            setBarbellWeight(customBarbellWeight);
+        } else {
+            const currentIndex = barbellOptions[weightUnit].indexOf(barbellWeight);
+            const newBarbellWeight = barbellOptions[unit][currentIndex] || barbellOptions[weightUnit][0];
+            setBarbellWeight(newBarbellWeight);
+        }
     }
 
     function resetPlatesDisplay() {
@@ -360,16 +363,15 @@ export default function BarbellCalculator() {
                                 }}
                             ></input>
                             {weightUnit === "LB" && (
-                              <label>5 LB collars?</label>
+                                <label>5 LB collars?</label>
                             )}
                             {weightUnit === "KG" && (
-                              <label>2.5 KG collars?</label>
+                                <label>2.5 KG collars?</label>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            <div>{isDipBeltLayout.toString()}</div>
         </main>
     );
 }
@@ -381,8 +383,15 @@ export default function BarbellCalculator() {
 //  ex) totalweight = 132.5 lb: 2.5, 10, 45, 45, 25, 5
 // 45's are always in middle, then 25lb and 10 on the outside of the 45's, then the 2.5 and 5's on the very outside
 
+// whats currently wrong with the dip belt layout
+// 1. when i am using dip belt layout and switch from lb to kg, it automatically defaults to the default barbell weight instead of using whatever was in the custom barbell weight, which is likely 0
 
 // whats currently wrong with the custom barbell weight
 // 1. if i refresh page and then enter total weight and then click on customBarbellWeight and then click off of it without entering unit, it and the rendering plates remain blank. instead it should then default back to the previously selected barbellWeight option
 // 2. if i had value in customBarbellWeight input, and then click back in, it unrenders plates. it should hold the previous values rendered plates until the user starts typing
 // 3. whenever i have a value in the custom barbell weight but have a different barbell weight selected, and i go to select the custom barbell weight option, whenever i click or tap on it, it first unrenders the plates and it is not until i click out of the input box that it re renders the plates if i didnt want to make changes to the custom barbell weight
+
+// some of the input boxes dont act how theyre supposed to
+// the dropdown menu on the navbar for the RM calculators, the hitbox is only the text instead of the whole div
+// keypad on bodyweight entery
+

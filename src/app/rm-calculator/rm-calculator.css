@@ -333,48 +333,7 @@ input, select {
     
 } */
 
-@media (max-width: 768px) {
-    
-}
 
-@media (max-width: 480px) {
-    .header-container select {
-        font-size: 1.49rem;
-    }
-
-    .weighted-pull-up-checkbox-container label, 
-    .adv-settings-toggle {
-        font-size: .88rem;
-    }
-
-    .weighted-pull-up-checkbox-container input {
-        margin-right: .075rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .data-container, 
-    .header-container {
-        width: 19rem;
-    }
-
-    .header-container select {
-        font-size: 1.375rem;
-    }
-
-    .weighted-pull-up-checkbox-container input {
-        margin-right: .075rem;
-    }
-
-    .weighted-pull-up-checkbox-container label, 
-    .adv-settings-toggle {
-        font-size: .88rem;
-    }
-
-    .advanced-settings-list {
-        font-size: .86rem;
-    }
-}
 
 
 /* WEIGHT FOR REPS CALCULATOR */
@@ -435,4 +394,72 @@ main {
 
 .calculator-info-bottom-section li {
     list-style: none;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 480px) {
+    .header-container select {
+        font-size: 1.49rem;
+    }
+
+    .weighted-pull-up-checkbox-container label, 
+    .adv-settings-toggle {
+        font-size: .88rem;
+    }
+
+    .weighted-pull-up-checkbox-container input {
+        margin-right: .075rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .calculator-info-bottom-section h2 {
+        font-size: 1.45em;
+    }
+}
+
+@media (max-width: 380px) {
+    .data-container, 
+    .header-container, 
+    .intensity-chart, 
+    .calculator-info-bottom-section {
+        width: 19rem;
+    }
+
+    .intensity-chart, 
+    .calculator-info-bottom-section {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .intensity-chart td {
+        font-size: .95rem;
+    }
+
+    .header-container select {
+        font-size: 1.375rem;
+    }
+
+    .weighted-pull-up-checkbox-container input {
+        margin-right: .075rem;
+    }
+
+    .weighted-pull-up-checkbox-container label, 
+    .adv-settings-toggle {
+        font-size: .88rem;
+    }
+
+    .advanced-settings-list {
+        font-size: .86rem;
+    }
+
+    .calculator-info-bottom-section h2 {
+        font-size: 1.2em;
+    }
 }
