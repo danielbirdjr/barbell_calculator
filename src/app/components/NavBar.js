@@ -109,3 +109,6 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+// the dropdown menu on the navbar for the RM calculators, the hitbox is only the text instead of the whole div

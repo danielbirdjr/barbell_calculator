@@ -192,13 +192,14 @@ function CalculatorComponent() {
     };
 
     const handlePercentageOfBodyweightChange = (value) => {
-        // Allow only numbers between 0 and 100
-        const numericValue = parseFloat(value);
-        if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
-            setPercentageOfBodyweight(numericValue);
-        } else if (value === "") {
-            // Allow clearing the input
-            setPercentageOfBodyweight("");
+        if (value === "") {
+            setPercentageOfBodyweight(""); // Allow clearing
+        } else {
+            const numericValue = parseFloat(value);
+            // Allow only numbers between 0 and 100
+            if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
+                setPercentageOfBodyweight(numericValue);
+            }
         }
     };
 
@@ -276,7 +277,14 @@ function CalculatorComponent() {
                 });
             }
         });
-    }, []); // Empty dependency array ensures this runs only on mount
+        return () => {
+            inputElements.forEach((inputElement) => {
+                inputElement.removeEventListener("focus", () => {});
+                inputElement.removeEventListener("input", () => {});
+                inputElement.removeEventListener("blur", () => {});
+            });
+        };
+    }, [isWeightedBodyweight, percentageOfBodyweight]);
 
     // Calculate 1RM (fallback to 0 if inputs are invalid)
     const oneRepMax =
@@ -589,6 +597,7 @@ function CalculatorComponent() {
                         {isWeightedBodyweight && (
                             <div className="bodyweight-and-percentage-container">
                                 <div className="bodyweight-container">
+                                    {/* This inputValueClear isnt working on this input */}
                                     <input
                                         className="inputValueClear"
                                         type="text"
@@ -603,6 +612,7 @@ function CalculatorComponent() {
                                 </div>
                                 {isAdvVisible && (
                                     <div className="percentage-container">
+                                        {/* This inputValueClear isnt working on this input */}
                                         <input
                                             className="inputValueClear"
                                             type="text"

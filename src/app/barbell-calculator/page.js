@@ -391,6 +391,4 @@ export default function BarbellCalculator() {
 // 2. if i had value in customBarbellWeight input, and then click back in, it unrenders plates. it should hold the previous values rendered plates until the user starts typing
 // 3. whenever i have a value in the custom barbell weight but have a different barbell weight selected, and i go to select the custom barbell weight option, whenever i click or tap on it, it first unrenders the plates and it is not until i click out of the input box that it re renders the plates if i didnt want to make changes to the custom barbell weight
 
-// some of the input boxes dont act how theyre supposed to
-// the dropdown menu on the navbar for the RM calculators, the hitbox is only the text instead of the whole div
-
+// customBarbellWeight input box doesnt act how its supposed to
