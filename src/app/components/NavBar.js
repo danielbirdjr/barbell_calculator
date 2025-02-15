@@ -97,8 +97,12 @@ const NavBar = () => {
                 <li className='rm-calculators' onClick={togglePopupMenu}>RM Calculators <FiChevronDown />
                     {isRMCalculatorPopUpMenuVisible && (
                         <ul className='rm-calculators-popup-menu'>
-                            <li><Link href="/rm-calculator?calculator=1RM">1 RM Calculator</Link></li>
-                            <li><Link href="/rm-calculator?calculator=Weight-for-Reps">Weight for Reps Calculator</Link></li>
+                            <Link href="/rm-calculator?calculator=1RM">
+                                <li>1 RM Calculator</li>
+                            </Link>
+                            <Link href="/rm-calculator?calculator=Weight-for-Reps">
+                                <li>Weight for Reps Calculator</li>
+                            </Link>
                         </ul>
                     )}
                 </li>
@@ -109,6 +113,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
-// the dropdown menu on the navbar for the RM calculators, the hitbox is only the text instead of the whole div
